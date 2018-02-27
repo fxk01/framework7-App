@@ -1,0 +1,42 @@
+{
+  "appName": "CNodejs.org",
+  "tag": {
+    "all": "All",
+    "good": "Good",
+    "hot": "Hot",
+    "share": "Share",
+    "ask": "Ask",
+    "job": "Job",
+    "language": "Language",
+    "top": "Top",
+    "normal": "Normal"
+  },
+  "page": {
+    "detail": "Detail",
+    "language": "Language"
+  },
+  "message": {
+    "choose": "Choose",
+    "reply": "Reply",
+    "cancel": "Cancel",
+    "comment": "Comment",
+    "sure": "Sure",
+    "title": "Message",
+    "text": "You clicked on the reply"
+  },
+  "detail": {
+    "publishDate": "Publish Date",
+    "replayCount": "Comments",
+    "viewingCount": "Viewed",
+    "comment": "Comment"
+  },
+  "language": {
+    "title": "Please select a language",
+    "chinese": "Chinese",
+    "english": "English",
+    "save": "Save"
+  },
+  "format": {
+    "date": "DD MMMM YYYY"
+  }
+}

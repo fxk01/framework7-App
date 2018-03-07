@@ -5,6 +5,7 @@
 
 'use strict';
 import detailModule from './detail/detail';
+import loginModule from './login/login'
 import Utils from './utils/tool';
 
 export default {
@@ -20,6 +21,8 @@ export default {
       case 'detail':
         detailModule.init(page);
         break;
+      case 'login':
+        loginModule.init(page);
       default:
         break;
     }

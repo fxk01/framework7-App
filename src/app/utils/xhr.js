@@ -38,7 +38,7 @@ function request(params) {
     _successFn(result, status, xhr);
   };
 
-  if (params.type.toUpperCase() === 'POST' && params.contentType && params.contentType.indexOf('json') != -1) {
+  if (params.type.toUpperCase() === 'POST' && params.contentType && params.contentType.indexOf('json') !== -1) {
     params.data = JSON.stringify(params.data);
   }
   console.log('调用接口:\n%s,\n参数列表:', params.url, params.data);

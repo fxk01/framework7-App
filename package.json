@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "date-fns": "^1.28.0",
-    "framework7": "^1.5.2",
+    "framework7": "^1.6.5",
+    "html-minifier": "^3.5.9",
     "node-polyglot": "^2.2.2"
   }
 }

@@ -81,10 +81,10 @@ export default {
     });
   },
   transformData(data){
-    for (let i = 0, l = data.length; i < l; i++) {
-      if (data[i].top) {
-          data[i].type = polyglot.t("tag.top");
-          continue;
+    for(let i = 0, l = data.length; i < l; i++) {
+      if(data[i].top) {
+        data[i].type = polyglot.t("tag.top");
+        continue;
       }
       switch (data[i].tab) {
         case 'share':

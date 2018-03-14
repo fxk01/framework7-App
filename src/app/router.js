@@ -5,7 +5,8 @@
 
 'use strict';
 import detailModule from './detail/detail';
-import loginModule from './login/login'
+import loginModule from './login/login';
+import searchModule from './search/search';
 import Utils from './utils/tool';
 
 export default {
@@ -23,6 +24,8 @@ export default {
         break;
       case 'login':
         loginModule.init(page);
+      case 'search':
+        searchModule.init(page);
       default:
         break;
     }

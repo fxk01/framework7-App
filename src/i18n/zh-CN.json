@@ -1,8 +1,8 @@
 {
   "appName": "CNode社区",
   "tag": {
-    "all": "全部",
-    "good": "精华",
+    "all": "登录",
+    "good": "搜索",
     "hot": "热门",
     "share": "分享",
     "ask": "问答",

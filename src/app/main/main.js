@@ -16,6 +16,13 @@ export default {
       res.data = that.transformData(res.data);
       let topicsTpl = Tool.renderTpl(mainHtml, res);
       $('.media-list ul').html('').append($(topicsTpl));
+      if($('.media-list').height() + $('.pull-to-refresh-layer').height() < window.screen.height) {
+        that.getTopics(2, function(res){
+          res.data = that.transformData(res.data);
+          let topicsTpl = Tool.renderTpl(mainHtml, res);
+          $('.media-list ul').append($(topicsTpl));
+        });
+      }
     });
     // this.setAvatar(Constant.AVATAR);
     this.pushRefresh();
@@ -53,6 +60,14 @@ export default {
         let topicsTpl = Tool.renderTpl(mainHtml, res);
         $('.media-list ul').html('').append($(topicsTpl));
         myApp.pullToRefreshDone();
+
+        if($('.media-list').height() + $('.pull-to-refresh-layer').height() < window.screen.height) {
+          that.getTopics(2, function(res){
+            res.data = that.transformData(res.data);
+            let topicsTpl = Tool.renderTpl(mainHtml, res);
+            $('.media-list ul').append($(topicsTpl));
+          });
+        }
       });
     });
   },

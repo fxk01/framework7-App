@@ -21,7 +21,7 @@ let app = {
       material: false,
       pushState: true,
       onAjaxStart: function (xhr) {
-        myApp.showIndicator();
+        myApp.showIndicator();;
       },
       // ajax请求完毕
       onAjaxComplete: function (xhr) {

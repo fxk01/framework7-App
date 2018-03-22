@@ -24,7 +24,7 @@ export default {
     let params = {
       id: id,
       success: (res) => {
-        console.log(res);
+        // console.log(res);
         // Loading.hide();
         res.data.create_at = Tool.publishTime(res.data.create_at);
         let detailTPl = Tool.renderTpl(detailTpl, res.data);
@@ -39,9 +39,9 @@ export default {
 
   showActionSheet(){
     let btns = [{
-        text: polyglot.t('message.reply'),
+        text: window.polyglot.t('message.reply'),
         onClick(){
-          Modal.alert(polyglot.t('message.text'));
+          Modal.alert(window.polyglot.t('message.text'));
         }
       }];
     showActionSheet(btns);

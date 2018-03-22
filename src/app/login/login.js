@@ -8,6 +8,7 @@ import Tool from '../utils/tool';
 import '../components/toast/toast.css'
 import '../components/toast/toast'
 import './login.less'
+import stoObj from '../components/stora-data'
 import * as echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line';
 import 'echarts/lib/component/tooltip';
@@ -26,8 +27,6 @@ export default {
       let toast = myApp.toast('账号密码错误！');
       toast.show();
     });
-
-
     echarts.init(main).setOption({
       title: {text: 'Line Chart'},
       tooltip: {},
@@ -48,5 +47,6 @@ export default {
         data: [[12, 5], [24, 20], [36, 36], [48, 10], [60, 10], [72, 20]]
       }]
     });
+    stoObj.title = '我是标题！'
   }
 }

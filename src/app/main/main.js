@@ -98,24 +98,24 @@ export default {
   transformData(data){
     for(let i = 0, l = data.length; i < l; i++) {
       if(data[i].top) {
-        data[i].type = polyglot.t("tag.top");
+        data[i].type = window.polyglot.t("tag.top");
         continue;
       }
       switch (data[i].tab) {
         case 'share':
-          data[i].type = polyglot.t("tag.share");
+          data[i].type = window.polyglot.t("tag.share");
           break;
         case 'ask':
-          data[i].type = polyglot.t("tag.ask");
+          data[i].type = window.polyglot.t("tag.ask");
           break;
         case 'job':
-          data[i].type = polyglot.t("tag.job");
+          data[i].type = window.polyglot.t("tag.job");
           break;
         case 'good':
-          data[i].type = polyglot.t("tag.good");
+          data[i].type = window.polyglot.t("tag.good");
           break;
         default:
-          data[i].type = polyglot.t("tag.normal");
+          data[i].type = window.polyglot.t("tag.normal");
           break;
       }
     }

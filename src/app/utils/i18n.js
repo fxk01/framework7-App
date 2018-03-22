@@ -12,6 +12,6 @@ const langs = {
 };
 
 export function initI18n(lng) {
-    var polyglot = new Polyglot({ phrases: langs[lng], locale: lng });
+    let polyglot = new Polyglot({ phrases: langs[lng], locale: lng });
     return polyglot;
 }

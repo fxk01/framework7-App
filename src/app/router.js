@@ -10,14 +10,14 @@ import searchModule from './search/search';
 import Utils from './utils/tool';
 
 export default {
-  init(){
+  init() {
     let that = this;
     $(document).on('pageBeforeInit', (e) => {
       e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
       that.pageBeforeInit(e.detail.page);
     });
   },
-  pageBeforeInit(page){
+  pageBeforeInit(page) {
     switch (page.name) {
       case 'detail':
         detailModule.init(page);

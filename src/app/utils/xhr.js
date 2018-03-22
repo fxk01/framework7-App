@@ -8,18 +8,18 @@ import Constant from './constant';
 export default {
   getTopics(params) {
     params.path = '/api/v1/topics/?page=' + params.page + '&tab=' + params.tab + '&limit=10';
-    request(params);
+    request(params, 'GET');
   },
   getDetailById(params) {
     params.path = '/api/v1/topic/' + params.id;
-    request(params);
+    request(params, 'GET');
   }
 };
 
-function request(params) {
-  var defaults = {
+function request(params, type) {
+  let defaults = {
     url: Constant.SERVER_URL + params.path,
-    type: 'GET',
+    type: type,
     contentType: 'application/json',
     dataType: 'json',
     complete: function(request, status) {}
@@ -30,17 +30,17 @@ function request(params) {
     }
   });
 
-  var _successFn = params.success;
-  params.success = function(result, status, xhr){
+  let _successFn = params.success;
+  params.success = function(result, status, xhr) {
+    // console.log(result);
     if (false) {
       //拦截
     }
     _successFn(result, status, xhr);
   };
-
   if (params.type.toUpperCase() === 'POST' && params.contentType && params.contentType.indexOf('json') !== -1) {
     params.data = JSON.stringify(params.data);
   }
-  console.log('调用接口:\n%s,\n参数列表:', params.url, params.data);
+  // console.log('调用接口:\n%s,\n参数列表:', params.url, params.data);
   $.ajax(params);
 }

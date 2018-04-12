@@ -1,48 +1,38 @@
 .main-page {
-
-  .list-block {
+  .sdx-main-h65 {
+    height: 65%;
+  }
+  .tabbar-labels {
+    height: 3.875rem;
+  }
+  .navbar {
+    background-color: #0f328d;
+  }
+  .sdx-main-userInformation {
+    height: 5.938rem;
+    background-color: #0177ff;
+    color: #ffffff;
+  }
+  .sdx-main-userInformation p {
     margin: 0;
-    .item-text {
-      font-size: 16px;
-      color: #333;
-      span{
-        padding: 2px 5px;
-        line-height: 20px;
-        background: #ddd;
-        color: #666;
-        border-radius: 2px;
-        font-size: 12px;
-        margin-right: 5px;
-      }
-    }
-    .item-text.top span,.item-subtitle.good span{
-      background: #47B04B;
-      color: #fff;
-    }
-    .item-title{
-      color: #666;
-      span{
-        color: #9e78c0;
-      }
-    }
-    .item-title-row{
-      font-size: 14px;
-      margin-top: 5px;
-      color: #757575;
-      font-weight: 400;
-    }
   }
-  .list-block.media-list .item-link .item-title-row{
-    background: none;
-    padding-right: 0;
+  .navbar .center {
+    color: #ffffff;
   }
-  .infinite-scroll-preloader {
-    margin-top: auto;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  .infinite-scroll-preloader .preloader {
-    width:34px;
-    height:34px;
-  }
+}
+
+html.ios-gt-8 .navbar .center {
+  font-weight: normal;
+}
+.navbar-fixed .page-content, .navbar-through .page-content {
+  padding-top: 0;
+}
+.content-block {
+  margin: 0;
+  padding:0;
+  color: #6d6d72;
+  box-sizing: border-box;
+}
+.page>.navbar {
+  position: relative;
 }

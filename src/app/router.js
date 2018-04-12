@@ -4,9 +4,7 @@
  */
 
 'use strict';
-import detailModule from './detail/detail';
-import loginModule from './login/login';
-import searchModule from './search/search';
+// import detailModule from './detail/detail';
 import Utils from './utils/tool';
 
 export default {
@@ -20,12 +18,8 @@ export default {
   pageBeforeInit(page) {
     switch (page.name) {
       case 'detail':
-        detailModule.init(page);
+        // detailModule.init(page);
         break;
-      case 'login':
-        loginModule.init(page);
-      case 'search':
-        searchModule.init(page);
       default:
         break;
     }

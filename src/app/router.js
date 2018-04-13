@@ -4,7 +4,9 @@
  */
 
 'use strict';
-// import detailModule from './detail/detail';
+import {
+  Detail,
+} from './page';
 import Utils from '../utils/tool';
 
 export default {
@@ -18,7 +20,7 @@ export default {
   pageBeforeInit(page) {
     switch (page.name) {
       case 'detail':
-        // detailModule.init(page);
+        // Detail.init(page);
         break;
       default:
         break;

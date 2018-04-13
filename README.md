@@ -1,6 +1,9 @@
 npm install
+
 npm run dev
+
 npm run build
+
 设置代理
 proxy: {
   "/api": "http://localhost:8081"

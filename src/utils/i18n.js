@@ -3,8 +3,8 @@
  */
 
 import Polyglot from 'node-polyglot';
-import zhCN from '../../i18n/zh-CN.json';
-import en from '../../i18n/en.json';
+import zhCN from '../i18n/zh-CN.json';
+import en from '../i18n/en.json';
 
 const langs = {
     "zh-CN": zhCN,

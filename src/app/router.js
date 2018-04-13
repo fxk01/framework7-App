@@ -5,7 +5,7 @@
 
 'use strict';
 // import detailModule from './detail/detail';
-import Utils from './utils/tool';
+import Utils from '../utils/tool';
 
 export default {
   init() {

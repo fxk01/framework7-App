@@ -9,8 +9,8 @@ import 'framework7/dist/css/framework7.ios.colors.min.css';
 import '../assets/app.less';
 import mainModule from './main/main';
 import Router from './router';
-import { initI18n } from './utils/i18n';
-import Constant from './utils/constant';
+import { initI18n } from '../utils/i18n';
+import Constant from '../utils/constant';
 
 let app = {
   init() {
@@ -33,7 +33,6 @@ let app = {
     let lng = localStorage.getItem(Constant.LNG) || 'zh-CN';
     window.polyglot = initI18n(lng);
     $('#app-name').html(polyglot.t('appName'));
-
     mainModule.init();
     Router.init();
   },

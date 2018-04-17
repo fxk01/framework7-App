@@ -2,4 +2,4 @@
  * 导出组件
  */
 
-export { default as Personal } from './personal/personal';
+export { default as Record } from './record/record';

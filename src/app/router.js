@@ -5,7 +5,7 @@
 
 'use strict';
 import {
-  Personal
+  Record
 } from './page';
 import Utils from '../utils/tool';
 
@@ -19,8 +19,8 @@ export default {
   },
   pageBeforeInit(page) {
     switch (page.name) {
-      case 'personal':
-        new Personal().init(page);
+      case 'record':
+        new Record().init(page);
         break;
       default:
         break;

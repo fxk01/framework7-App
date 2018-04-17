@@ -6,10 +6,14 @@
 import './main.less';
 import mainTpl from './main.tpl.html';
 import Tool from '../../utils/tool';
+import widget from '../../utils/widget'
 import sto from '../../store/main_store';
-import highcharts from 'highcharts';
+import highCharts from 'highcharts';
 
-export default {
+export default class Main extends widget {
+  constructor() {
+    super();
+  }
   init() {
     let _mainTpl = Tool.renderTpl(mainTpl, {
       score: '您的风险问卷调查得分为',
@@ -17,7 +21,7 @@ export default {
     $('.main-page').append($(_mainTpl));
     this.ajaxMoney();
     this.assetsChart();
-  },
+  }
   /*
    获取资产概况
    */
@@ -30,9 +34,9 @@ export default {
     }, function(res){
       console.log(res);
     })
-  },
+  }
   assetsChart() {
-    highcharts.chart('container', {
+    highCharts.chart('container', {
       chart: {
         type: 'areaspline'
       },
@@ -47,7 +51,7 @@ export default {
         y: 100,
         floating: true,
         borderWidth: 1,
-        backgroundColor: (highcharts.theme && highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        backgroundColor: (highCharts.theme && highCharts.theme.legendBackgroundColor) || '#FFFFFF'
       },
       xAxis: {
         categories: [

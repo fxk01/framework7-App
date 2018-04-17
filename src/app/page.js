@@ -2,4 +2,4 @@
  * 导出组件
  */
 
-export { default as Detail } from './detail/detail';
+export { default as Personal } from './personal/personal';

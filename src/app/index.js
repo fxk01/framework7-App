@@ -33,7 +33,7 @@ let app = {
     let lng = localStorage.getItem(Constant.LNG) || 'zh-CN';
     window.polyglot = initI18n(lng);
     $('#app-name').html(polyglot.t('appName'));
-    mainModule.init();
+    new mainModule().init();
     Router.init();
   },
   // 如果需要调用cordova 需要在deviceReady后 调用 mainModule.init()

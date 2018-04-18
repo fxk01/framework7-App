@@ -24,7 +24,7 @@ export default class Main extends widget {
 
     let ptrContent = $('.pull-to-refresh-content');
     myApp.initPullToRefresh(ptrContent);
-    ptrContent.on('refresh', function (e) {
+    ptrContent.on('refresh', function(e) {
       setTimeout(function () {
         console.log(1);
         myApp.pullToRefreshDone();
@@ -40,7 +40,7 @@ export default class Main extends widget {
         page: 1,
         pagesize: 10,
       }
-    }, function(res){
+    }, (res) => {
       console.log(res);
     })
   }

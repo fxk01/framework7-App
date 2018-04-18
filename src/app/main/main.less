@@ -2,7 +2,7 @@
 @ml02: 0.2rem;
 .main-page {
   .tabbar-labels {
-    height: 1.875rem;
+    height: 1.666666666667rem;
   }
   .ml02 {
     margin-left: @ml02;
@@ -62,7 +62,7 @@
     white-space: nowrap;
   }
   .tabbar-labels a.link, .tabbar-labels a.tab-link {
-    padding-top: 4%;
+    padding-top: 3%;
     padding-bottom: 4%;
     height: 100%;
     -webkit-box-pack: justify;
@@ -156,7 +156,8 @@
     color: #909090;
   }
   .list-block {
-    margin-top: 0;
+    margin-top: 2px;
+    margin-bottom: 1px;
   }
   .sdx-main-blUl li {
     display: inline-block;
@@ -230,5 +231,36 @@
   }
   .sdx-main-hg {
     min-height: 1.33333333333rem;
+  }
+  .list-block .item-inner:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    height: auto;
+    width: 100%;
+    background-color: #c8c7cc;
+    display: block;
+    z-index: 15;
+    -webkit-transform-origin: 50% 100%;
+    transform-origin: 50% 100%;
+  }
+  .myBlock li {
+    border-bottom: 1px solid #ebefee;
+  }
+  .myBlock li:nth-child(2) {
+    border-bottom: 5px solid #ebefee;
+  }
+  .myBlock li:nth-child(6) {
+    border-bottom: 5px solid #ebefee;
+  }
+  .myBlock li:last-child {
+    border-bottom: none;
+    margin-bottom: 4px;
+  }
+  .tab1BlockItem .item-inner:after {
+    height: 1px;
   }
 }

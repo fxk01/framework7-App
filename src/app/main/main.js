@@ -21,6 +21,15 @@ export default class Main extends widget {
     $('.main-page').append($(_mainTpl));
     this.ajaxMoney();
     this.assetsChart();
+
+    let ptrContent = $('.pull-to-refresh-content');
+    myApp.initPullToRefresh(ptrContent);
+    ptrContent.on('refresh', function (e) {
+      setTimeout(function () {
+        console.log(1);
+        myApp.pullToRefreshDone();
+      }, 2000);
+    });
   }
   /*
    获取资产概况

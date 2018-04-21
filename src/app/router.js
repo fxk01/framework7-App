@@ -6,7 +6,8 @@
 'use strict';
 import {
   Record,
-  Complaint
+  Complaint,
+  Login
 } from './page';
 import Utils from '../utils/tool';
 
@@ -25,6 +26,9 @@ export default {
         break;
       case 'complaint':
         new Complaint().init(page);
+        break;
+      case 'login':
+        new Login().init(page);
         break;
       default:
         break;

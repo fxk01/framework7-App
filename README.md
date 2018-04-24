@@ -8,8 +8,8 @@ npm run build
 proxy: {
   "/api": "http://localhost:8081"
 }
-```
-```js
+
+
 module.exports = {
   dev: {
     host: 'localhost',

@@ -9,7 +9,6 @@ proxy: {
   "/api": "http://localhost:8081"
 }
 
-
 module.exports = {
   dev: {
     host: 'localhost',
@@ -19,8 +18,8 @@ module.exports = {
     }
   }
 }
-```
-```
+
+
 index.js -> router.js -> views, viewsJs
 npm cache clean -f //Please try running this command again as root/Administrator.
 https://github.com/ariya/phantomjs  无头自动化

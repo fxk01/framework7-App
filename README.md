@@ -1,8 +1,8 @@
-npm install
+#npm install
 
-npm run dev
+#npm run dev
 
-npm run build
+#npm run build
 
 设置代理
 proxy: {

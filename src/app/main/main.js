@@ -59,6 +59,9 @@ export default class Main extends widget {
         console.log(p);
       },
     });
+    let calendarDefault = myApp.calendar({
+      input: '#calendarDate',
+    });
   }
   /*
    获取资产概况

@@ -22,6 +22,7 @@ export default class Main extends widget {
     this.ajaxMoney();
     this.assetsChart();
     this.postNetValue();
+    this.monthlyIncome();
 
     let ptrContent = $('.pull-to-refresh-content');
     myApp.initPullToRefresh(ptrContent);
@@ -30,6 +31,33 @@ export default class Main extends widget {
         console.log(1);
         myApp.pullToRefreshDone();
       }, 2000);
+    });
+
+    let pickerDevice = myApp.picker({
+      input: '#picker-device',
+      cols: [
+        {
+          textAlign: 'center',
+          values: ['2016', '2017', '2018']
+        }
+      ],
+      toolbarCloseText: '完成',
+      onClose: function (p) {
+        console.log(p);
+      },
+    });
+    let pickerDeviceZxt = myApp.picker({
+      input: '#pickerZxt',
+      cols: [
+        {
+          textAlign: 'center',
+          values: ['2016', '2017', '2018']
+        }
+      ],
+      toolbarCloseText: '完成',
+      onClose: function (p) {
+        console.log(p);
+      },
     });
   }
   /*
@@ -160,6 +188,34 @@ export default class Main extends widget {
           24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
           22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
           10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104]
+      }]
+    });
+  }
+  monthlyIncome() {
+    highCharts.chart('containerYdSy', {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: ' '
+      },
+      xAxis: {
+        categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
+      },
+      yAxis: {
+        title: {
+          text: ' '
+        },
+      },
+      credits: {
+        enabled: false
+      },
+      series: [{
+        name: '小张',
+        data: [5, 3, 4, 7, 2]
+      }, {
+        name: '小彭',
+        data: [2, -2, -3, 2, 1]
       }]
     });
   }

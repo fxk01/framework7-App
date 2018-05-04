@@ -7,7 +7,8 @@
 import {
   Record,
   Complaint,
-  Login
+  Login,
+  Fund,
 } from './page';
 import Utils from '../utils/tool';
 
@@ -29,6 +30,9 @@ export default {
         break;
       case 'login':
         new Login().init(page);
+        break;
+      case 'fund':
+        new Fund().init(page);
         break;
       default:
         break;

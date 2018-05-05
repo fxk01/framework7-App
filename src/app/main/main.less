@@ -1,21 +1,53 @@
-.main-page {
-
-}
-input.modal-text-input {
-  box-sizing: border-box;
-  height: 50px;
-  background: #fff;
-  margin-top: 15px;
-  padding: 0 5px;
-  border: 1px solid #ebefee;
-  border-radius: 0;
-  width: 100%;
-  font-size: 14px;
-  font-family: inherit;
-  display: block;
-  box-shadow: 0 0 0 transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
+.modal {
+  height: 12.333333rem;
+  border-radius: 6px;
+  background-color: #ffffff;
+  width: 8.93333333rem;
+  margin-left: -4.46666666667rem;
+  top: 42%;
+  .sdx-main-ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 9.3333333rem;
+    overflow-y: scroll;
+  }
+  .sdx-main-ul li {
+    height: 1.4666666rem;
+    font-size: 14px;
+    line-height: 1.4666666rem;
+    text-align: left;
+    margin: 0 0.35rem 0 0.78rem;
+    border-bottom: 1px solid #ebefee;
+  }
+  input.modal-text-input {
+    box-sizing: border-box;
+    height: 50px;
+    background: #fff;
+    border: 1px solid #ebefee;
+    border-radius: 0;
+    width: 100%;
+    font-family: inherit;
+    display: block;
+    box-shadow: 0 0 0 transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    font-size: 15px;
+    padding: 0 0.4rem;
+    margin-top: 0.8rem;
+  }
+  .modal-buttons {
+    display: none;
+  }
+  .modal-inner {
+    padding: 0 15px;
+  }
+  .modal-inner:after {
+    height: 0;
+  }
+  .sdx-main-ul li:last-child {
+    border-bottom: none;
+  }
 }

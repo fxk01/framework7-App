@@ -35,6 +35,7 @@ export default class Main extends widget {
           companyName: e.target.value,
         }
       }, (res) => {
+        
         let topicsTpl = Tool.renderTpl(companyList, res);
         $('.companyList ul').html('').append($(topicsTpl));
         console.log(res);

@@ -2,7 +2,7 @@
 
 export default {
   // AVATAR: require('../../assets/images/01.png'),
-  SERVER_URL: 'https://wechat.hefupb.com/testadmin/',
+  SERVER_URL: 'http://sdx.hefupb.com/',
   STATUS: {
     SUCCESS: 0
   },

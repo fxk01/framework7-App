@@ -6,8 +6,8 @@
 import request from '../utils/fetch'
 
 export default {
-  contactInfo(params, callback) {
-    params.path = 'read/contactinfo';
-    request(params, 'get', callback);
+  companyListQuery(params, callback) {
+    params.path = 'data';
+    request(params, 'POST', callback);
   }
 };

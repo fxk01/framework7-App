@@ -11,6 +11,7 @@ export default function(params, type = 'POST', callback) {
     type: type,
     dataType: 'json',
     callback,
+    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
   };
   $.each(defaults, function(key, val){
     if (!params[key]) {
@@ -20,6 +21,7 @@ export default function(params, type = 'POST', callback) {
   let _successFn = params.success;
   params.success = function(result, status, xhr) {
     if(status === 200 && result['result'] === 'OK') {
+      console.log(result);
       callback(result);
     } else {
       // 请求失败拦截

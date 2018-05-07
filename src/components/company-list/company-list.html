@@ -1,7 +1,7 @@
 <div class="companyList">
   <ul class="sdx-main-ul">
     {{#each queryCompanylist}}
-    <li>{{name}}</li>
+    <li data-id="{{id}}" data-type="{{company_type}}">{{name}}</li>
     {{/each}}
   </ul>
 </div>

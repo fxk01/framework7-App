@@ -16,8 +16,12 @@ export default {
   init() {
     let that = this;
     $(document).on('pageBeforeInit', (e) => {
+      myApp.closeModal('.modal');
       e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
       that.pageBeforeInit(e.detail.page);
+    });
+    $(document).on('pageBeforeRemove', (e) => {
+      myApp.closeModal('.modal');
     });
   },
   pageBeforeInit(page) {

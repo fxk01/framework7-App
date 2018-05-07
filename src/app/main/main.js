@@ -19,10 +19,10 @@ export default class Main extends widget {
     let _mainTpl = Tool.renderTpl(mainTpl);
     $('.main-page').append($(_mainTpl));
     myApp.prompt('', '');
-    let topicsTpl = Tool.renderTpl(companyList, {});
-    $('.modal').append($(topicsTpl));
+    $('.modal').addClass('modal-main');
     $('.modal-text-input').attr('placeholder', '请输入公司名称');
     $('.modal-text-input').on('input porpertychange', (e) => { this.queryCompany(e); });
+    $('.modal-main').on('click', '.sdx-main-ul li', (e) => { this.jumpLogin(e); });
   }
   /*
    查询公司名称
@@ -35,11 +35,26 @@ export default class Main extends widget {
           companyName: e.target.value,
         }
       }, (res) => {
-        
         let topicsTpl = Tool.renderTpl(companyList, res);
-        $('.companyList ul').html('').append($(topicsTpl));
-        console.log(res);
+        $('.modal-main .companyList').remove();
+        $('.modal-main').append($(topicsTpl));
       })
     }
+  }
+  /*
+   登陆
+   */
+  jumpLogin(e) {
+    let _dataId = e.target.getAttribute('data-id');
+    let _companyType = e.target.getAttribute('data-type');
+    sessionStorage.setItem('cid', _dataId);
+    sessionStorage.setItem('company_type', _companyType);
+    let data = '=' + _dataId;
+    let code = [];
+    for(let i = 0; i < data.length; i++) {
+      code += 'D' + data.charCodeAt(i).toString(6);
+    }
+    data = code + 'T' + _dataId;
+    mainView.router.loadPage(`page/login.html?cid=${data}`);
   }
 };

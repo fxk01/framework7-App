@@ -26,7 +26,7 @@ let app = {
         myApp.hideIndicator();
       }
     });
-    myApp.addView('.view-main', {
+    window.mainView = myApp.addView('.view-main', {
       domCache: true
     });
 

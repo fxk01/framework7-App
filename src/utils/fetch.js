@@ -20,11 +20,13 @@ export default function(params, type = 'POST', callback) {
   });
   let _successFn = params.success;
   params.success = function(result, status, xhr) {
-    if(status === 200 && result['result'] === 'OK') {
+    const rt = Object.assign(params.assign, result);
+    if(status === 200 && rt['result'] === 'OK') {
       console.log(result);
       callback(result);
     } else {
-      // 请求失败拦截
+      alert('接口错误！');
+      return false;
     }
     _successFn(result, status, xhr);
   };

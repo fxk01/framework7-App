@@ -9,7 +9,7 @@ const config = require('./config');
 
 const webpackConfig = {
   entry: {
-      app: ['./src/app/index.js']
+    app: ['./src/app/index.js']
   },
   output: {
     path: path.resolve(__dirname, '../dist/'),

@@ -4,6 +4,9 @@
 
 'use strict';
 import './login.less';
+import '../../components/toast/toast.css';
+import toast from '../../components/toast/toast';
+import 'babel-polyfill';
 import loginTpl from './login.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
@@ -14,6 +17,12 @@ export default class Complaint extends widget {
     tem: `<div style="text-align: left;">尊敬的投资者</div>`
   };
   init(page) {
+    const _cid = page.query.cid;
+    if(_cid === undefined) {
+      window.location.href = `http://${window.location.host}`;
+    } else {
+      this.analysisCid(page);
+    }
     let _loginTpl = Tool.renderTpl(loginTpl);
     $('.login-page').append($(_loginTpl));
     myApp.modal({
@@ -29,6 +38,7 @@ export default class Complaint extends widget {
       ],
     });
     $('.modal').addClass('modal-login');
+    $('.login-screen').on('click', '.sdx-link-login', (e) => { this.loginHome(); });
     this.agreementMessage();
   }
   /*
@@ -45,5 +55,58 @@ export default class Complaint extends widget {
     }, (res) => {
       $('.md-lg-ct').html(res['AgreementMessageList'][0].content);
     })
+  }
+  /*
+   登陆
+   */
+  loginHome() {
+    function validator(target, validator, errorMsg) {
+      return new Proxy(target, {
+        _validator: validator,
+        set(target, key, value, proxy) {
+          let errMsg = errorMsg;
+          if (value === '') {
+            let options = {
+              onHide: function () {
+                console.log('hidden');
+              },
+              duration: 2000
+            };
+            let toast = myApp.toast('', `<div>${errMsg[key]}不能为空！</div>`, options);
+            toast.show();
+            return target[key] = false
+          }
+          let va = this._validator[key];
+          if (!va(value)) {
+            return Reflect.set(target, key, value, proxy)
+          } else {
+            alert(`${errMsg[key]}格式不正确`);
+            return target[key] = false
+          }
+        }
+      })
+    }
+    const validators = {
+      name(value) {
+        return value.length > 30
+      },
+      passWd(value) {
+        return value.length > 30
+      },
+    };
+    const errorMsg = {
+      name: '证件号码',
+      passWd: '登录密码',
+    };
+    const vaLi = validator({}, validators, errorMsg);
+    let validatorNext = function* () {
+      yield vaLi.name = $(`input[name='username']`).val();
+      yield vaLi.passWd = $(`input[name='password']`).val();
+    };
+    let _validator = validatorNext();
+    _validator.next();
+    !vaLi.name || _validator.next();
+    !vaLi.passWd || _validator.next();
+    console.log(vaLi.name,vaLi.passWd)
   }
 };

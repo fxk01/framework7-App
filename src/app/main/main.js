@@ -54,7 +54,7 @@ export default class Main extends widget {
     for(let i = 0; i < data.length; i++) {
       code += 'D' + data.charCodeAt(i).toString(6);
     }
-    data = code + 'T' + _dataId;
+    data = code + 'T' + _companyType;
     mainView.router.loadPage(`page/login.html?cid=${data}`);
   }
 };

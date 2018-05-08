@@ -4,9 +4,9 @@
       <div class="page">
         <div class="page-content login-screen-content">
           <div class="pd1013">
-            <div class="login-screen-title sdx-login-title">个人用户请填写证件号，机构用户请填写机构证件号，产品用户请填写产品备案编码。</div>
-            <form>
-              <div class="list-block">
+            <form id="registerForm">
+              <div class="list-block sdx-login-pd103">
+                <div class="login-screen-title sdx-login-title">个人用户请填写证件号，机构用户请填写机构证件号，产品用户请填写产品备案编码。</div>
                 <ul>
                   <li class="item-content">
                     <div class="item-inner">
@@ -14,7 +14,7 @@
                         <img src="../../assets/images/card.png">
                       </div>
                       <div class="item-input">
-                        <input type="text" name="username" placeholder="请输入证件号码">
+                        <input type="text" name="username" placeholder="请输入证件号码" maxlength="30">
                       </div>
                     </div>
                   </li>
@@ -24,30 +24,33 @@
                         <img src="../../assets/images/key.png">
                       </div>
                       <div class="item-input">
-                        <input type="password" name="password" placeholder="请输入登录密码">
+                        <input type="password" name="password" placeholder="请输入登录密码" maxlength="30">
                       </div>
                     </div>
                   </li>
                 </ul>
               </div>
-            </form>
-            <div class="sdx-footer-hd">
-              <p>
+
+              <div class="sdx-footer-hd">
+                <p>
                 <span>
                   <a href="javascript:">注册</a>
                   <b>|</b>
                 </span>
-                <span>
+                  <span>
                   <a href="javascript:">忘记密码？</a>
                 </span>
-              </p>
-            </div>
-          </div>
+                </p>
+              </div>
 
-          <div class="list-block">
-            <ul>
-              <li><a href="#" class="item-link list-button">登录</a></li>
-            </ul>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="javascript:" class="item-link list-button sdx-link-login">登录</a>
+                  </li>
+                </ul>
+              </div>
+            </form>
           </div>
         </div>
       </div>

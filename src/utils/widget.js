@@ -4,7 +4,7 @@
 
 export default class widget {
   /*
-   解析
+   解析cid
    */
   analysisCid(page) {
     const pageUrl = page.url;
@@ -23,7 +23,7 @@ export default class widget {
           code += String.fromCharCode(parseInt(d[i], 6));
           let StringCid = code;
           if(StringCid === '') {
-            window.location.href = `http://${window.location.host}`;
+            window.location.href = `http://${window.location.host}/dist`;
             return false;
           } else{
             sessionStorage.setItem('cid', StringCid.substring(1));

@@ -7,7 +7,6 @@ import './fund.less';
 import fundTpl from './fund.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget'
-import sto from '../../store/main_store';
 import highCharts from 'highcharts';
 
 export default class Fund extends widget {
@@ -19,7 +18,6 @@ export default class Fund extends widget {
       score: '您的风险问卷调查得分为',
     });
     $('.fund-page').append($(_fundTpl));
-    this.ajaxMoney();
     this.assetsChart();
     this.postNetValue();
     this.monthlyIncome();
@@ -62,19 +60,6 @@ export default class Fund extends widget {
     let calendarDefault = myApp.calendar({
       input: '#calendarDate',
     });
-  }
-  /*
-   获取资产概况
-   */
-  ajaxMoney() {
-    sto.contactInfo({
-      data: {
-        page: 1,
-        pagesize: 10,
-      }
-    }, (res) => {
-      console.log(res);
-    })
   }
   assetsChart() {
     highCharts.chart('container', {

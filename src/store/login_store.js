@@ -13,5 +13,24 @@ export default {
       AgreementMessageList: [],
     };
     request(params, 'POST', callback);
+  },
+  postUserLogin(params, callback) {
+    params.path = 'data';
+    params.assign = {
+      betweenDays: '',
+      cardType: '',
+      cid: '',
+      companyUser: '',
+      idCard: '',
+      phone: '',
+      qScore: '',
+      qTime: '',
+      result: false,
+      sfwzytzz: '',
+      user: '',
+      userId: '',
+      userType: '',
+    };
+    request(params, 'POST', callback);
   }
 };

@@ -5,8 +5,7 @@
 'use strict';
 import './login.less';
 import '../../components/toast/toast.css';
-import toast from '../../components/toast/toast';
-import 'babel-polyfill';
+import '../../components/toast/toast';
 import loginTpl from './login.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
@@ -107,6 +106,17 @@ export default class Complaint extends widget {
     _validator.next();
     !vaLi.name || _validator.next();
     !vaLi.passWd || _validator.next();
-    console.log(vaLi.name,vaLi.passWd)
+    LoginStore.postUserLogin({
+      data: {
+        action: 'UserLogin',
+        cid: sessionStorage.getItem('cid'),
+        company_type: sessionStorage.getItem('company_type'),
+        username: vaLi.name,
+        password: vaLi.passWd,
+      }
+    }, (res) => {
+
+      console.log(res);
+    });
   }
 };

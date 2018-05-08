@@ -22,10 +22,9 @@ export default function(params, type = 'POST', callback) {
   params.success = function(result, status, xhr) {
     const rt = Object.assign(params.assign, result);
     if(status === 200 && rt['result'] === 'OK') {
-      console.log(result);
       callback(result);
-    } else {
-      alert('接口错误！');
+    } else if(rt['result'] === 'NumNG') {
+      myApp.alert('账号或密码错误！', '提示');
       return false;
     }
     _successFn(result, status, xhr);

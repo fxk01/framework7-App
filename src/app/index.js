@@ -7,6 +7,7 @@ import 'framework7';
 import 'framework7/dist/css/framework7.ios.min.css';
 import 'framework7/dist/css/framework7.ios.colors.min.css';
 import '../assets/app.less';
+import 'babel-polyfill';
 import mainModule from './main/main';
 import Router from './router';
 import { initI18n } from '../utils/i18n';

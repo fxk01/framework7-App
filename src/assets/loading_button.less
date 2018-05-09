@@ -1,0 +1,112 @@
+.btn__icon {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
+  display: inline-block;
+  top: 11px;
+  position: absolute;
+  left: 20px;
+}
+.btn .btn__icon:before {
+  content: '';
+  left:0;
+  top:0;
+  position: absolute;
+  transition:  all 0.3s linear;
+  -o-transition:  all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+}
+.btn .btn__icon:after {
+  content: '';
+  top: 0;
+  left: 0;
+  position: absolute;
+  transition:  all 0.3s linear;
+  -o-transition:  all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+}
+.btn--activate:hover {
+  background-color: #2f89d1;
+}
+.btn--activate:hover .btn__icon {
+  border-color: #2f89d1;
+}
+.btn--activate:hover .btn__icon:before {
+  background-position-y: -34px;
+}
+
+.btn--activate:hover .btn__icon:after {
+  background-position-y: center;
+}
+.btn--waiting {
+  background-color: #2f89d1;
+}
+.btn__text:after {
+  content: attr(data-wait);
+  position: absolute;
+  width: 3rem;
+  left: -24px;
+  top: 2px;
+  z-index: -1;
+  color: #fff;
+  transition:  all 0.2s linear;
+  -o-transition:  all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+}
+.btn--waiting .btn__icon {
+  background-color: transparent;
+}
+.btn--waiting .btn__icon:after {
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  animation: rotation infinite linear 0.5s;
+  transition: none;
+  border-top: 2px solid transparent;
+  border-left: 2px solid #fff;
+  border-right: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  z-index: 0;
+}
+.btn--activated {
+  background-color: #44cc71;
+}
+.btn__text {
+  position: relative;
+}
+.btn--waiting .btn__text {
+  color: transparent;
+}
+.btn--waiting .btn__text:after {
+  top: -15px;
+  z-index: 1;
+}
+.btn--activated .btn__text:before {
+  top: -13px;
+  z-index: 1;
+}
+.btn--activated .btn__text {
+  color: transparent;
+}
+@keyframes rotation {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes activated {
+  0% {
+    background-position-y: 34px;
+  }
+  100% {
+    background-position-y: center;
+  }
+}

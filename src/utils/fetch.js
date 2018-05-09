@@ -23,9 +23,8 @@ export default function(params, type = 'POST', callback) {
     const rt = Object.assign(params.assign, result);
     if(status === 200 && rt['result'] === 'OK') {
       callback(result);
-    } else if(rt['result'] === 'NumNG') {
-      myApp.alert('账号或密码错误！', '提示');
-      return false;
+    } else {
+      callback(result);
     }
     _successFn(result, status, xhr);
   };

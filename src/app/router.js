@@ -16,27 +16,22 @@ import Utils from '../utils/tool';
 export default {
   init() {
     let that = this;
-    $(document).on('pageBeforeInit', (e) => {
-      myApp.closeModal('.modal-main');
+    $(document).on('pageBeforeAnimation', (e) => {
+      console.log(e.detail.page.name);
       e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
       that.pageBeforeInit(e.detail.page);
     });
-    $(document).on('pageBeforeRemove', (e) => {
-      myApp.closeModal('.modal-login');
-      myApp.closeModal('.login-screen');
-      const urlBeFor = e.srcElement.baseURI.split('/');
-      urlBeFor.forEach(element => {
-        if(element.indexOf('#!') > 0) {
-          that.el = element;
-        }
-      });
-      if(that.el === undefined) {
-        new mainModule().init();
-      }
-    });
   },
   pageBeforeInit(page) {
+    myApp.closeModal('.modal-main');
+    myApp.closeModal('.modal-login');
+    if(page.name !== null) {
+      myApp.closeModal('.login-screen');
+    }
     switch (page.name) {
+      case 'index':
+        new mainModule().init(page);
+        break;
       case 'record':
         new Record().init(page);
         break;

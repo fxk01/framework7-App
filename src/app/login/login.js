@@ -13,8 +13,13 @@ import LoginStore from '../../store/login_store';
 
 export default class Complaint extends widget {
   static defaultHtml = {
-    tem: `<div style="text-align: left;">尊敬的投资者</div>`
+    tem: `<div style="text-align: left;">尊敬的投资者</div>`,
   };
+
+  constructor() {
+    super();
+  }
+
   init(page) {
     const _cid = page.query.cid;
     if(_cid === undefined) {
@@ -37,7 +42,8 @@ export default class Complaint extends widget {
       ],
     });
     $('.modal').addClass('modal-login');
-    $('.login-screen').on('click', '.sdx-link-login', (e) => { this.loginHome(); });
+    this.screen = $('.login-screen');
+    this.screen.on('click', '.sdx-link-login', () => { this.loginHome(); });
     this.agreementMessage();
   }
   /*
@@ -59,28 +65,30 @@ export default class Complaint extends widget {
    登陆
    */
   loginHome() {
+    let btnActivation = $('#btnActivation');
     function validator(target, validator, errorMsg) {
+      let options = {
+        onHide: function () {
+          console.log('hidden');
+        },
+        duration: 2000
+      };
       return new Proxy(target, {
         _validator: validator,
         set(target, key, value, proxy) {
           let errMsg = errorMsg;
           if (value === '') {
-            let options = {
-              onHide: function () {
-                console.log('hidden');
-              },
-              duration: 2000
-            };
             let toast = myApp.toast('', `<div>${errMsg[key]}不能为空！</div>`, options);
             toast.show();
-            return target[key] = false
+            throw new TypeError(`${errMsg[key]}不能为空！`);
           }
           let va = this._validator[key];
           if (!va(value)) {
             return Reflect.set(target, key, value, proxy)
           } else {
-            alert(`${errMsg[key]}格式不正确`);
-            return target[key] = false
+            let toast = myApp.toast('', `<div>${errMsg[key]}格式不正确</div>`, options);
+            toast.show();
+            throw new TypeError(`${errMsg[key]}格式不正确`);
           }
         }
       })
@@ -106,6 +114,10 @@ export default class Complaint extends widget {
     _validator.next();
     !vaLi.name || _validator.next();
     !vaLi.passWd || _validator.next();
+    if(!btnActivation.hasClass(('btn--activated'))){
+      btnActivation.removeClass('btn--activate');
+      btnActivation.addClass('btn--waiting');
+    }
     LoginStore.postUserLogin({
       data: {
         action: 'UserLogin',
@@ -115,7 +127,25 @@ export default class Complaint extends widget {
         password: vaLi.passWd,
       }
     }, (res) => {
-      console.log(res);
+      if(res['result'] === 'NumNG') {
+        myApp.alert('账号或密码错误！', '提示');
+      } else if(res.result === 'InterNG') {
+        myApp.alert('网络故障。', '提示');
+      }else if(res.result === 'RoleNG') {
+        myApp.alert('该用户目前暂无任何角色，无法登录。', '提示');
+      } else {
+        for(let key in res) {
+          if(key !== 'result') {
+            sessionStorage.setItem(key, res[key]);
+          }
+        }
+        if(sessionStorage.getItem('company_type') === '1') {
+          this.screen.remove();
+          mainView.router.loadPage(`page/fund.html`);
+        }
+      }
+      btnActivation.removeClass('btn--waiting');
+      btnActivation.addClass('btn--activate');
     });
   }
 };

@@ -13,7 +13,9 @@ export default class Fund extends widget {
   constructor() {
     super();
   }
-  init() {
+
+  init(page) {
+    myApp.closeModal('.modal-main');
     let _fundTpl = Tool.renderTpl(fundTpl, {
       score: '您的风险问卷调查得分为',
     });

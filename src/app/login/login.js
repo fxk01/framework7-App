@@ -115,7 +115,6 @@ export default class Complaint extends widget {
         password: vaLi.passWd,
       }
     }, (res) => {
-
       console.log(res);
     });
   }

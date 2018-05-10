@@ -6,6 +6,7 @@
 import './login.less';
 import '../../components/toast/toast.css';
 import '../../components/toast/toast';
+import loginHtml from '../../page/login.html';
 import loginTpl from './login.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
@@ -21,6 +22,13 @@ export default class Complaint extends widget {
   }
 
   init(page) {
+    let viewMainDom = $('.view-main').attr('data-page');
+    if(viewMainDom !== 'login') {
+      $('.view-main').attr('data-page', 'login');
+      $('.pages').append(loginHtml);
+      $('.login-page').remove();
+      $('.login-page').addClass('page-on-center')
+    }
     const _cid = page.query.cid;
     if(_cid === undefined) {
       window.location.href = `http://${window.location.host}`;

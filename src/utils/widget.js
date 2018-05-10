@@ -32,4 +32,11 @@ export default class widget {
       }
     }
   }
+  formatNumber(v, precision) {
+    if (precision === 0) {
+      return v.toFixed(precision).replace(/(\d)(?=(\d{3})+$)/g, '$1,');
+    } else {
+      return v.toFixed(precision).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    }
+  }
 };

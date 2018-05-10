@@ -8,6 +8,8 @@ import fundHtml from '../../page/fund.html'
 import fundTpl from './fund.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget'
+import FundStore from '../../store/fund_store';
+import fundAsset from '../../components/fund-asset/fund-asset.html';
 import highCharts from 'highcharts';
 
 export default class Fund extends widget {
@@ -16,6 +18,7 @@ export default class Fund extends widget {
   }
 
   init() {
+    let _idCard = sessionStorage.getItem('idCard');
     let viewMainDom = $('.view-main').attr('data-page');
     if(viewMainDom !== 'fund') {
       $('.view-main').attr('data-page', 'fund');
@@ -27,19 +30,6 @@ export default class Fund extends widget {
       score: '您的风险问卷调查得分为',
     });
     $('.fund-page').show().append($(_fundTpl));
-    this.assetsChart();
-    this.postNetValue();
-    this.monthlyIncome();
-
-    let ptrContent = $('.pull-to-refresh-content');
-    myApp.initPullToRefresh(ptrContent);
-    ptrContent.on('refresh', function(e) {
-      setTimeout(function () {
-        console.log(1);
-        myApp.pullToRefreshDone();
-      }, 2000);
-    });
-
     let pickerDevice = myApp.picker({
       input: '#picker-device',
       cols: [
@@ -69,7 +59,47 @@ export default class Fund extends widget {
     let calendarDefault = myApp.calendar({
       input: '#calendarDate',
     });
+    $('.fundUser').text(sessionStorage.getItem('companyUser'));
+    $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2,2));
+    this.assetsChart();
+    this.postNetValue();
+    this.monthlyIncome();
+    this.postAssetProfile();
+    let ptrContent = $('.pull-to-refresh-content');
+    myApp.initPullToRefresh(ptrContent);
+    ptrContent.on('refresh', function(e) {
+      setTimeout(function () {
+        console.log(1);
+        myApp.pullToRefreshDone();
+      }, 2000);
+    });
   }
+  /*
+   获取资产概况
+   */
+  postAssetProfile() {
+    FundStore.postYonghuChanpin({
+      data: {
+        action: 'yonghuChanpin',
+        cid: sessionStorage.getItem('cid'),
+        idCard: sessionStorage.getItem('idCard'),
+        company_type: sessionStorage.getItem('company_type'),
+      }
+    }, (res) => {
+      let json = res['chanpin'][0];
+      json.capital = this.formatNumber(json['capital'], 2);
+      json.profit = this.formatNumber(json['profit'], 2);
+      json.return_rate = this.formatNumber(json['return_rate'], 2);
+      let echoTpl = Tool.renderTpl(fundAsset, json);
+      $('.sdx-fund-sec').html('').append($(echoTpl));
+    })
+  }
+
+
+
+
+
+
   assetsChart() {
     highCharts.chart('container', {
       chart: {

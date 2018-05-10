@@ -8,7 +8,6 @@ import 'framework7/dist/css/framework7.ios.min.css';
 import 'framework7/dist/css/framework7.ios.colors.min.css';
 import '../assets/app.less';
 import 'babel-polyfill';
-import mainModule from './main/main';
 import Router from './router';
 import { initI18n } from '../utils/i18n';
 import Constant from '../utils/constant';
@@ -28,13 +27,12 @@ let app = {
       }
     });
     window.mainView = myApp.addView('.view-main', {
-      domCache: true
+      domCache: false,
     });
 
     let lng = localStorage.getItem(Constant.LNG) || 'zh-CN';
     window.polyglot = initI18n(lng);
     $('#app-name').html(polyglot.t('appName'));
-    new mainModule().init();
     Router.init();
   },
   // 如果需要调用cordova 需要在deviceReady后 调用 mainModule.init()

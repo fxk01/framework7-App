@@ -4,6 +4,7 @@
 
 'use strict';
 import './fund.less';
+import fundHtml from '../../page/fund.html'
 import fundTpl from './fund.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget'
@@ -14,12 +15,18 @@ export default class Fund extends widget {
     super();
   }
 
-  init(page) {
+  init() {
+    let viewMainDom = $('.view-main').attr('data-page');
+    if(viewMainDom !== 'fund') {
+      $('.view-main').attr('data-page', 'fund');
+      $('.pages').append(fundHtml);
+      $('.fund-page').addClass('page-on-center')
+    }
     myApp.closeModal('.modal-main');
     let _fundTpl = Tool.renderTpl(fundTpl, {
       score: '您的风险问卷调查得分为',
     });
-    $('.fund-page').append($(_fundTpl));
+    $('.fund-page').show().append($(_fundTpl));
     this.assetsChart();
     this.postNetValue();
     this.monthlyIncome();

@@ -4,6 +4,7 @@
 
 'use strict';
 import './main.less';
+import mainHtml from '../../page/main.html'
 import mainTpl from './main.tpl.html';
 import companyList from '../../components/company-list/company-list.html'
 import Tool from '../../utils/tool';
@@ -16,8 +17,14 @@ export default class Main extends widget {
   }
 
   init() {
+    let viewMainDom = $('.view-main').attr('data-page');
+    if(viewMainDom !== 'main') {
+      $('.view-main').attr('data-page', 'main');
+      $('.pages').append(mainHtml);
+      $('.main-page').addClass('page-on-center')
+    }
     let _mainTpl = Tool.renderTpl(mainTpl);
-    $('.main-page').append($(_mainTpl));
+    $('.main-page').html('').append($(_mainTpl));
     myApp.prompt('', '');
     $('.modal').addClass('modal-main');
     $('.modal-text-input').attr('placeholder', '请输入公司名称');

@@ -16,20 +16,38 @@ import Utils from '../utils/tool';
 export default {
   init() {
     let that = this;
-    $(document).on('pageBeforeAnimation', (e) => {
-      console.log(e.detail.page.name);
+    $(document).on('pageBeforeInit', (e) => {
       e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
       that.pageBeforeInit(e.detail.page);
     });
+
+    window.addEventListener('popstate', function(e) {
+      let _arrUrl = window.location.href.split('/');
+      let page = '';
+      _arrUrl.forEach((item) => {
+        if(item.indexOf('.html') > 0) {
+          page = item.match(/\w+.html+/g)[0].slice(0, -5);
+        }
+      });
+      that.pageBeforeInit({
+        name: page === '' ? 'index' : page,
+        query: {
+          cid: Utils.parseURL('cid'),
+        },
+        url: window.location.href,
+      });
+    })
   },
+
   pageBeforeInit(page) {
+    $('.'+page.name+'-page').html('');
     myApp.closeModal('.modal-main');
     myApp.closeModal('.modal-login');
     if(page.name !== null) {
       myApp.closeModal('.login-screen');
     }
     switch (page.name) {
-      case 'index':
+      case 'main':
         new mainModule().init(page);
         break;
       case 'record':

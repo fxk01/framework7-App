@@ -140,7 +140,6 @@ export default class Complaint extends widget {
           }
         }
         if(sessionStorage.getItem('company_type') === '1') {
-          this.screen.remove();
           mainView.router.loadPage(`page/fund.html`);
         }
       }

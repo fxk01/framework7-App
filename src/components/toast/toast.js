@@ -1,7 +1,7 @@
 /**
  * A plugin for Framework7 to show black little toasts
  *
- * @author www.timo-ernst.net
+ * @author lkm
  * @license MIT
  */
 Framework7.prototype.plugins.toast = function (app, globalPluginParams) {

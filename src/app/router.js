@@ -17,7 +17,7 @@ export default {
   init() {
     let that = this;
     $(document).on('pageBeforeInit', (e) => {
-      e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
+      // e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
       that.pageBeforeInit(e.detail.page);
     });
 

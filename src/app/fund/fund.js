@@ -9,6 +9,7 @@ import fundTpl from './fund.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget'
 import FundStore from '../../store/fund_store';
+import userFdInformation from '../../components/user-fd-information/user-fd-information.html';
 import fundAsset from '../../components/fund-asset/fund-asset.html';
 import highCharts from 'highcharts';
 
@@ -23,13 +24,12 @@ export default class Fund extends widget {
     if(viewMainDom !== 'fund') {
       $('.view-main').attr('data-page', 'fund');
       $('.pages').append(fundHtml);
-      $('.fund-page').addClass('page-on-center')
+      $('.fund-page').addClass('page-on-center');
     }
     myApp.closeModal('.modal-main');
-    let _fundTpl = Tool.renderTpl(fundTpl, {
-      score: '您的风险问卷调查得分为',
-    });
+    let _fundTpl = Tool.renderTpl(fundTpl);
     $('.fund-page').show().append($(_fundTpl));
+    $('.userFundInformation').append(userFdInformation);
     let pickerDevice = myApp.picker({
       input: '#picker-device',
       cols: [
@@ -60,11 +60,12 @@ export default class Fund extends widget {
       input: '#calendarDate',
     });
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
-    $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2,2));
-    this.assetsChart();
+    $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
+    this.postAssetsChart();
     this.postNetValue();
     this.monthlyIncome();
     this.postAssetProfile();
+    this.postRiskTolerance();
     let ptrContent = $('.pull-to-refresh-content');
     myApp.initPullToRefresh(ptrContent);
     ptrContent.on('refresh', function(e) {
@@ -94,68 +95,131 @@ export default class Fund extends widget {
       $('.sdx-fund-sec').html('').append($(echoTpl));
     })
   }
-
-
-
-
-
-
-  assetsChart() {
-    highCharts.chart('container', {
-      chart: {
-        type: 'areaspline'
-      },
-      title: {
-        text: ''
-      },
-      legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 150,
-        y: 100,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: (highCharts.theme && highCharts.theme.legendBackgroundColor) || '#FFFFFF'
-      },
-      xAxis: {
-        categories: [
-          '周一',
-          '周二',
-          '周三',
-          '周四',
-          '周五',
-          '周六',
-          '周日'
-        ],
-        plotBands: [{
-          from: 4.5,
-          to: 6.5,
-        }]
-      },
-      yAxis: {
-        title: {
-          text: ''
-        }
-      },
-      tooltip: {
-        shared: true,
-        valueSuffix: ' 单位'
-      },
-      credits: {
-        enabled: false
-      },
-      plotOptions: {
-        areaspline: {
-          fillOpacity: 0.5
-        }
-      },
-      series: [{
-        name: '小张',
-        data: [3, 4, 3, 5, 4, 10, 12]
-      }]
+  /*
+   获取风险承受能力
+   */
+  postRiskTolerance() {
+    let assessmentResultDom = $('.assessmentResult');
+    let gradeDom = $('.grade');
+    let insertAnswerDateDom = $('.insertAnswerDate');
+    let insertAnswerBetweenDaysDom = $('.insertAnswerBetweenDays');
+    FundStore.postGetAnswer({
+      data: {
+        action: 'GetAnswer',
+        cid: sessionStorage.getItem('cid'),
+        accountId: sessionStorage.getItem('userId'),
+        grade: sessionStorage.getItem('qScore'),
+        topicType: sessionStorage.getItem('company_type'),
+      }
+    }, (res) => {
+      if(sessionStorage.getItem('qScore') === '-1') {
+        assessmentResultDom.text('未测评');
+        gradeDom.text('未测评。');
+        insertAnswerDateDom.text('-');
+        insertAnswerBetweenDaysDom.text('-');
+      } else {
+        assessmentResultDom.text(res['assessment']);
+        gradeDom.text(sessionStorage.getItem('qScore'));
+        insertAnswerDateDom.text(sessionStorage.getItem('qTime').substring(0, 11).replace(/\//g, '.'));
+        insertAnswerBetweenDaysDom.text(sessionStorage.getItem('betweenDays') + '天');
+      }
+    })
+  }
+  /*
+   获取用户产品
+   */
+  postAssetsChart() {
+    FundStore.postRgUserChanPin({
+      data: {
+        action: 'GetRgUserChanPin',
+        cid: sessionStorage.getItem('cid'),
+        idCard: sessionStorage.getItem('idCard'),
+      }
+    }, (res) => {
+      if(res['result'] === 'OK') {
+        this.yhZiChan(res['chanpinList']);
+      } else {
+        alert('接口错误！');
+      }
     });
   }
+  /*
+   获取资产走势
+   */
+  yhZiChan(cp) {
+    FundStore.postYonghuZichan({
+      data: {
+        action: 'yonghuZichan',
+        cid: sessionStorage.getItem('cid'),
+        idCard: sessionStorage.getItem('idCard'),
+        ids: cp,
+      }
+    }, (res) => {
+      let _arrXdate = [];
+      let _arrData = [];
+      for(let i = 0; i < res.zichan['zoushi'].length; i++) {
+        _arrData.push(res.zichan['zoushi'][i].capital);
+        _arrXdate.push(res.zichan['zoushi'][i].date.substring(0, 10).replace(/\//g, "."))
+      }
+      console.log(_arrData);
+      highCharts.chart('containerTrend', {
+        chart: {
+          type: 'areaspline'
+        },
+        title: {
+          text: ' '
+        },
+        credits: {
+          enabled: false
+        },
+        colors: ['#e97678'],
+        legend: {
+          layout: 'vertical',
+          align: 'left',
+          verticalAlign: 'top',
+          x: 150,
+          y: 100,
+          floating: true,
+          borderWidth: 1,
+          backgroundColor: (highCharts.theme && highCharts.theme.legendBackgroundColor) || '#FFFFFF'
+        },
+        xAxis: {
+          lineWidth: 0,
+          tickWidth: 0,
+          minTickInterval: 1000,
+          categories: _arrXdate,
+          plotBands: [{
+            from: 4.5,
+            to: 6.5,
+          }]
+        },
+        yAxis: {
+          title: {
+            text: ' '
+          }
+        },
+        tooltip: {
+          shared: true,
+          valueSuffix: ''
+        },
+        plotOptions: {
+          areaspline: {
+            fillOpacity: 0.5
+          }
+        },
+        series: [{
+          name: '资金',
+          data: _arrData,
+          turboThreshold: 0,
+        }]
+      });
+
+
+
+    });
+  }
+
+
   postNetValue() {
     highCharts.chart('containerJzZs', {
       chart: {

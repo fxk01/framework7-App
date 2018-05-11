@@ -21,7 +21,7 @@ export default class Main extends widget {
     if(viewMainDom !== 'main') {
       $('.view-main').attr('data-page', 'main');
       $('.pages').append(mainHtml);
-      $('.main-page').addClass('page-on-center')
+      $('.main-page').addClass('page-on-center');
     }
     let _mainTpl = Tool.renderTpl(mainTpl);
     $('.main-page').html('').append($(_mainTpl));
@@ -49,7 +49,7 @@ export default class Main extends widget {
     }
   }
   /*
-   登陆
+   选择公司
    */
   jumpLogin(e) {
     let _dataId = e.target.getAttribute('data-id');

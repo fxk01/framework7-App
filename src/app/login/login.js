@@ -27,7 +27,7 @@ export default class Complaint extends widget {
       $('.view-main').attr('data-page', 'login');
       $('.pages').append(loginHtml);
       $('.login-page').remove();
-      $('.login-page').addClass('page-on-center')
+      $('.login-page').addClass('page-on-center');
     }
     const _cid = page.query.cid;
     if(_cid === undefined) {

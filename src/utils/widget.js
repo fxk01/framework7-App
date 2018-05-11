@@ -39,4 +39,15 @@ export default class widget {
       return v.toFixed(precision).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     }
   }
+  formatMoney(v) {
+    let label = v.toFixed(0);
+    if(v >= 1000000000) {
+      label = (v / 10000000).toFixed(0) + 'kw';
+    } else if(v >= 1000000) {
+      label = (v / 10000).toFixed(0) + 'w';
+    } else if(v >= 100000) {
+      label = (v / 1000).toFixed(0) + 'k';
+    }
+    return label;
+  }
 };

@@ -38,5 +38,13 @@ export default {
       chanpinList: ''
     };
     request(params, 'POST', callback);
+  },
+  postChanpinList(params, callback) {
+    params.path = 'data';
+    params.assign = {
+      result: false,
+      chanpin_list: [],
+    };
+    request(params, 'POST', callback);
   }
 };

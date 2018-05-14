@@ -11,6 +11,7 @@ import widget from '../../utils/widget'
 import FundStore from '../../store/fund_store';
 import CountUp from '../../components/countUp';
 import fundProducts from '../../components/fund-products/fund-products.html'
+import fundInfoList from '../../components/fund-infoList/fund-infoList.html';
 import userFdInformation from '../../components/user-fd-information/user-fd-information.html';
 import fundAsset from '../../components/fund-asset/fund-asset.html';
 import highCharts from 'highcharts';
@@ -32,42 +33,18 @@ export default class Fund extends widget {
     let _fundTpl = Tool.renderTpl(fundTpl);
     $('.fund-page').show().append($(_fundTpl));
     $('.userFundInformation').append(userFdInformation);
-    let pickerDevice = myApp.picker({
-      input: '#picker-device',
-      cols: [
-        {
-          textAlign: 'center',
-          values: ['2016', '2017', '2018']
-        }
-      ],
-      toolbarCloseText: '完成',
-      onClose: function (p) {
-        console.log(p);
-      },
-    });
-    let pickerDeviceZxt = myApp.picker({
-      input: '#pickerZxt',
-      cols: [
-        {
-          textAlign: 'center',
-          values: ['2016', '2017', '2018']
-        }
-      ],
-      toolbarCloseText: '完成',
-      onClose: function (p) {
-        console.log(p);
-      },
-    });
-    let calendarDefault = myApp.calendar({
-      input: '#calendarDate',
-    });
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
     this.fundHomeData();
-    this.postNetValue();
-    this.monthlyIncome();
-
-    $('.pull-to-refresh-content').on('refresh', () => { this.fundHomeData(); });
+    this.fundListContent();
+    $('.pullFundHome').on('refresh', () => { this.fundHomeData(); });
+    $('.pullFund').on('refresh', () => {
+      this.fundListContent().then(function(str) {
+        if(str) {
+          myApp.pullToRefreshDone();
+        }
+      });
+    });
   }
   /*
    基金产品首页内容
@@ -241,96 +218,30 @@ export default class Fund extends widget {
       })
     })
   }
-
-
-  postNetValue() {
-    highCharts.chart('containerJzZs', {
-      chart: {
-        type: 'area'
-      },
-      title: {
-        text: ' '
-      },
-      subtitle: {
-        text: ' '
-      },
-      xAxis: {
-        allowDecimals: false,
-        labels: {
-          formatter: function () {
-            return this.value;
-          }
+  /*
+   获取基金产品列表
+   */
+  fundListContent() {
+    return new Promise((resolve) => {
+      FundStore.postChanpinList({
+        data: {
+          action: 'ChanpinList',
+          company_type: sessionStorage.getItem('company_type'),
+          cid: sessionStorage.getItem('cid'),
+          qScore: sessionStorage.getItem('qScore'),
+          typeJudge: sessionStorage.getItem('userType') === '个人' ? 1 : 2,
+          sfwzytzz: sessionStorage.getItem('sfwzytzz'),
+          idCard: sessionStorage.getItem('idCard'),
         }
-      },
-      yAxis: {
-        title: {
-          text: ' '
-        },
-        labels: {
-          formatter: function () {
-            return this.value / 1000 + 'k';
-          }
+      }, (res) => {
+        let json = res;
+        for(let i = 0; i < json['chanpin_list'].length; i++) {
+          json['chanpin_list'][i].found = ((json['chanpin_list'][i].total_unit_net_worth - 1) * 100).toFixed(1);
         }
-      },
-      tooltip: {
-        pointFormat: '{series.name} 制造 <b>{point.y:,.0f}</b>枚弹头'
-      },
-      credits: {
-        enabled: false
-      },
-      plotOptions: {
-        area: {
-          pointStart: 1940,
-          marker: {
-            enabled: false,
-            symbol: 'circle',
-            radius: 2,
-            states: {
-              hover: {
-                enabled: true
-              }
-            }
-          }
-        }
-      },
-      series: [{
-        name: ' ',
-        data: [null, null, null, null, null, 6, 11, 32, 110, 235, 369, 640,
-          1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
-          27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342, 26662,
-          26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
-          24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
-          22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
-          10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104]
-      }]
-    });
-  }
-  monthlyIncome() {
-    highCharts.chart('containerYdSy', {
-      chart: {
-        type: 'column'
-      },
-      title: {
-        text: ' '
-      },
-      xAxis: {
-        categories: ['苹果', '橘子', '梨', '葡萄', '香蕉']
-      },
-      yAxis: {
-        title: {
-          text: ' '
-        },
-      },
-      credits: {
-        enabled: false
-      },
-      series: [{
-        name: '小张',
-        data: [5, 3, 4, 7, 2]
-      }, {
-        name: '小彭',
-        data: [2, -2, -3, 2, 1]
-      }]
+        let echoFundInfoListTpl = Tool.renderTpl(fundInfoList, json);
+        $('.fundTab2Accordion').html('').append($(echoFundInfoListTpl));
+        resolve(true);
+      });
     });
   }
 };

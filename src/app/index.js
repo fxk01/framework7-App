@@ -18,6 +18,7 @@ let app = {
     window.myApp = new Framework7({
       material: false,
       pushState: true,
+      swipeBackPage: false,
       onAjaxStart: function (xhr) {
         myApp.showIndicator();
       },

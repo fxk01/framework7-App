@@ -19,6 +19,7 @@ import highCharts from 'highcharts';
 export default class Fund extends widget {
   constructor() {
     super();
+    this.show = false;
   }
 
   init() {
@@ -37,6 +38,9 @@ export default class Fund extends widget {
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
     this.fundHomeData();
     this.fundListContent();
+    $('.showHdAssets').on('click', (e) => {
+      this.showAssets(e);
+    });
     $('.pullFundHome').on('refresh', () => { this.fundHomeData(); });
     $('.pullFund').on('refresh', () => {
       this.fundListContent().then(function(str) {
@@ -137,8 +141,8 @@ export default class Fund extends widget {
           separator: ',',
           decimal: '.',
         };
-        new CountUp('myTargetElement', 0, json.capital, 0, 2.5, options).start();
-        new CountUp('myTargetElementSyE', 0, json.profit, 0, 2.5, options).start();
+        new CountUp('myTargetElement', 0, json['capital'], 0, 2.5, options).start();
+        new CountUp('myTargetElementSyE', 0, json['profit'], 0, 2.5, options).start();
         new CountUp('myTargetElementSyL', 0, json['returnRate'], 0, 2.5, options).start();
         for(let i = 0; i < res.zichan['zoushi'].length; i++) {
           _arrData.push(res.zichan['zoushi'][i].capital);
@@ -243,5 +247,21 @@ export default class Fund extends widget {
         resolve(true);
       });
     });
+  }
+  /*
+   显示隐藏资产
+   */
+  showAssets(e) {
+    if(this.show) {
+      $('.showMoney').show();
+      $('.hideMoney').hide();
+      e.target.src = '../src/assets/images/home_openeye.png';
+      this.show = false;
+    } else {
+      $('.showMoney').hide();
+      $('.hideMoney').show();
+      e.target.src = '../src/assets/images/home_closeeye.png';
+      this.show = true;
+    }
   }
 };

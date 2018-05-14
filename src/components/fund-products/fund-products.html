@@ -1,0 +1,49 @@
+{{#if "result == OK"}}
+<ul>
+  {{#each chanpin}}
+  <li class="accordion-item">
+      <a href="#" class="item-content item-link">
+        <div class="item-inner">
+          <div class="item-title sdx-fund-goodsList15pt">{{name}}</div>
+          <div class="item-title sdx-fund-goodsList9pt">更新于:&nbsp;&nbsp;2016.04.07</div>
+        </div>
+      </a>
+      <div class="accordion-item-content">
+        <div class="content-block">
+          <ul class="sdx-fund-blUl">
+            <li>
+              <p class="sdx-fund-goodsList15pt">{{total_unit_net_worth}}</p>
+              <p class="sdx-fund-goodsList10pt">最新累计净值</p>
+            </li>
+            <li>
+              <p class="sdx-fund-goodsList15pt">{{unit_net_worth_now}}</p>
+              <p class="sdx-fund-goodsList10pt">最新单位净值</p>
+            </li>
+            <li class="sdx-fund-goodsList15pt">
+              <p>{{return_rate}}%</p>
+              <p class="sdx-fund-goodsList10pt">累计收益率</p>
+            </li>
+
+            <li class="sdx-fund-goodsList15pt">
+              <p class="sdx-fund-goodsList15pt">{{capital}}</p>
+              <p class="sdx-fund-goodsList10pt">总资产</p>
+            </li>
+            <li class="sdx-fund-goodsList15pt">
+              <p class="sdx-fund-goodsList15pt">{{shares}}</p>
+              <p class="sdx-fund-goodsList10pt">持有份额</p>
+            </li>
+            <li class="sdx-fund-goodsList15pt">
+              <p>{{profit}}</p>
+              <p class="sdx-fund-goodsList10pt">累计收益额</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  {{/each}}
+</ul>
+{{else}}
+<span>暂无数据！</span>
+{{/if}}
+
+

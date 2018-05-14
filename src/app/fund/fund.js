@@ -9,6 +9,8 @@ import fundTpl from './fund.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget'
 import FundStore from '../../store/fund_store';
+import CountUp from '../../components/countUp';
+import fundProducts from '../../components/fund-products/fund-products.html'
 import userFdInformation from '../../components/user-fd-information/user-fd-information.html';
 import fundAsset from '../../components/fund-asset/fund-asset.html';
 import highCharts from 'highcharts';
@@ -61,162 +63,183 @@ export default class Fund extends widget {
     });
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
-    this.postAssetsChart();
+    this.fundHomeData();
     this.postNetValue();
     this.monthlyIncome();
-    this.postAssetProfile();
-    this.postRiskTolerance();
-    let ptrContent = $('.pull-to-refresh-content');
-    myApp.initPullToRefresh(ptrContent);
-    ptrContent.on('refresh', function(e) {
-      setTimeout(function () {
-        console.log(1);
-        myApp.pullToRefreshDone();
-      }, 2000);
-    });
+
+    $('.pull-to-refresh-content').on('refresh', () => { this.fundHomeData(); });
   }
   /*
-   获取资产概况
+   基金产品首页内容
    */
-  postAssetProfile() {
-    FundStore.postYonghuChanpin({
-      data: {
-        action: 'yonghuChanpin',
-        cid: sessionStorage.getItem('cid'),
-        idCard: sessionStorage.getItem('idCard'),
-        company_type: sessionStorage.getItem('company_type'),
+  fundHomeData() {
+    Promise.all([this.postRiskTolerance(), this.postAssetsChart(), this.postAssetProfile()]).then(([ret1, ret2, ret3]) => {
+      if(ret3 === 'c') {
+        myApp.pullToRefreshDone();
       }
-    }, (res) => {
-      let json = res['chanpin'][0];
-      json.capital = this.formatNumber(json['capital'], 2);
-      json.profit = this.formatNumber(json['profit'], 2);
-      json.return_rate = this.formatNumber(json['return_rate'], 2);
-      let echoTpl = Tool.renderTpl(fundAsset, json);
-      $('.sdx-fund-sec').html('').append($(echoTpl));
-    })
+    });
   }
   /*
    获取风险承受能力
    */
   postRiskTolerance() {
-    let assessmentResultDom = $('.assessmentResult');
-    let gradeDom = $('.grade');
-    let insertAnswerDateDom = $('.insertAnswerDate');
-    let insertAnswerBetweenDaysDom = $('.insertAnswerBetweenDays');
-    FundStore.postGetAnswer({
-      data: {
-        action: 'GetAnswer',
-        cid: sessionStorage.getItem('cid'),
-        accountId: sessionStorage.getItem('userId'),
-        grade: sessionStorage.getItem('qScore'),
-        topicType: sessionStorage.getItem('company_type'),
-      }
-    }, (res) => {
-      if(sessionStorage.getItem('qScore') === '-1') {
-        assessmentResultDom.text('未测评');
-        gradeDom.text('未测评。');
-        insertAnswerDateDom.text('-');
-        insertAnswerBetweenDaysDom.text('-');
-      } else {
-        assessmentResultDom.text(res['assessment']);
-        gradeDom.text(sessionStorage.getItem('qScore'));
-        insertAnswerDateDom.text(sessionStorage.getItem('qTime').substring(0, 11).replace(/\//g, '.'));
-        insertAnswerBetweenDaysDom.text(sessionStorage.getItem('betweenDays') + '天');
-      }
+    return new Promise((resolve) => {
+      let assessmentResultDom = $('.assessmentResult');
+      let gradeDom = $('.grade');
+      let insertAnswerDateDom = $('.insertAnswerDate');
+      let insertAnswerBetweenDaysDom = $('.insertAnswerBetweenDays');
+      FundStore.postGetAnswer({
+        data: {
+          action: 'GetAnswer',
+          cid: sessionStorage.getItem('cid'),
+          accountId: sessionStorage.getItem('userId'),
+          grade: sessionStorage.getItem('qScore'),
+          topicType: sessionStorage.getItem('company_type'),
+        }
+      }, (res) => {
+        if(sessionStorage.getItem('qScore') === '-1') {
+          assessmentResultDom.text('未测评');
+          gradeDom.text('未测评。');
+          insertAnswerDateDom.text('-');
+          insertAnswerBetweenDaysDom.text('-');
+        } else {
+          assessmentResultDom.text(res['assessment']);
+          gradeDom.text(sessionStorage.getItem('qScore'));
+          insertAnswerDateDom.text(sessionStorage.getItem('qTime').substring(0, 11).replace(/\//g, '.'));
+          insertAnswerBetweenDaysDom.text(sessionStorage.getItem('betweenDays') + '天');
+        }
+        resolve('a');
+      })
     })
   }
   /*
    获取用户产品
    */
   postAssetsChart() {
-    FundStore.postRgUserChanPin({
-      data: {
-        action: 'GetRgUserChanPin',
-        cid: sessionStorage.getItem('cid'),
-        idCard: sessionStorage.getItem('idCard'),
-      }
-    }, (res) => {
-      if(res['result'] === 'OK') {
-        this.yhZiChan(res['chanpinList']);
-      } else {
-        alert('接口错误！');
-      }
+    return new Promise((resolve) => {
+      FundStore.postRgUserChanPin({
+        data: {
+          action: 'GetRgUserChanPin',
+          cid: sessionStorage.getItem('cid'),
+          idCard: sessionStorage.getItem('idCard'),
+        }
+      }, (res) => {
+        if(res['result'] === 'OK') {
+          this.yhZiChan(res['chanpinList']).then((r1) => {
+            resolve(r1);
+          });
+        } else {
+          alert('接口错误！');
+        }
+      });
     });
   }
   /*
-   获取资产走势
+   获取资产概况&资产走势
    */
   yhZiChan(cp) {
-    FundStore.postYonghuZichan({
-      data: {
-        action: 'yonghuZichan',
-        cid: sessionStorage.getItem('cid'),
-        idCard: sessionStorage.getItem('idCard'),
-        ids: cp,
-      }
-    }, (res) => {
-      let _arrXdate = [];
-      let _arrData = [];
-      for(let i = 0; i < res.zichan['zoushi'].length; i++) {
-        _arrData.push(res.zichan['zoushi'][i].capital);
-        _arrXdate.push(res.zichan['zoushi'][i].date.substring(0, 10).replace(/\//g, "."))
-      }
-      console.log(_arrData);
-      highCharts.chart('containerTrend', {
-        chart: {
-          type: 'areaspline'
-        },
-        title: {
-          text: ' '
-        },
-        credits: {
-          enabled: false
-        },
-        colors: ['#e97678'],
-        legend: {
-          layout: 'vertical',
-          align: 'left',
-          verticalAlign: 'top',
-          x: 150,
-          y: 100,
-          floating: true,
-          borderWidth: 1,
-          backgroundColor: (highCharts.theme && highCharts.theme.legendBackgroundColor) || '#FFFFFF'
-        },
-        xAxis: {
-          lineWidth: 0,
-          tickWidth: 0,
-          minTickInterval: 1000,
-          categories: _arrXdate,
-          plotBands: [{
-            from: 4.5,
-            to: 6.5,
-          }]
-        },
-        yAxis: {
+    return new Promise((resolve) => {
+      FundStore.postYonghuZichan({
+        data: {
+          action: 'yonghuZichan',
+          cid: sessionStorage.getItem('cid'),
+          idCard: sessionStorage.getItem('idCard'),
+          ids: cp,
+        }
+      }, (res) => {
+        let _arrXDate = [];
+        let _arrData = [];
+        let json = res.zichan;
+        // json.capital = this.formatNumber(json['capital'], 2);
+        // json.profit = this.formatNumber(json['profit'], 2);
+        let echoTpl = Tool.renderTpl(fundAsset, json);
+        $('.sdx-fund-sec').html('').append($(echoTpl));
+        let options = {
+          useEasing: true,
+          useGrouping: true,
+          separator: ',',
+          decimal: '.',
+        };
+        new CountUp('myTargetElement', 0, json.capital, 0, 2.5, options).start();
+        new CountUp('myTargetElementSyE', 0, json.profit, 0, 2.5, options).start();
+        new CountUp('myTargetElementSyL', 0, json['returnRate'], 0, 2.5, options).start();
+        for(let i = 0; i < res.zichan['zoushi'].length; i++) {
+          _arrData.push(res.zichan['zoushi'][i].capital);
+          _arrXDate.push(res.zichan['zoushi'][i].date.substring(0, 10).replace(/\//g, "."))
+        }
+        highCharts.chart('containerTrend', {
+          chart: {
+            type: 'areaspline'
+          },
           title: {
             text: ' '
-          }
-        },
-        tooltip: {
-          shared: true,
-          valueSuffix: ''
-        },
-        plotOptions: {
-          areaspline: {
-            fillOpacity: 0.5
-          }
-        },
-        series: [{
-          name: '资金',
-          data: _arrData,
-          turboThreshold: 0,
-        }]
+          },
+          credits: {
+            enabled: false
+          },
+          colors: ['#e97678'],
+          legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 150,
+            y: 100,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: (highCharts.theme && highCharts.theme.legendBackgroundColor) || '#FFFFFF'
+          },
+          xAxis: {
+            lineWidth: 0,
+            tickWidth: 0,
+            tickInterval: res.zichan['zoushi'].length - 1,
+            categories: _arrXDate,
+            plotBands: [{
+              from: 4.5,
+              to: 6.5,
+            }]
+          },
+          yAxis: {
+            title: {
+              text: ' '
+            }
+          },
+          tooltip: {
+            shared: true,
+            valueSuffix: ''
+          },
+          plotOptions: {
+            areaspline: {
+              fillOpacity: 0.5
+            }
+          },
+          series: [{
+            name: '资金',
+            data: _arrData,
+            turboThreshold: 0,
+          }]
+        });
+        resolve('b');
       });
-
-
-
-    });
+    })
+  }
+  /*
+   获取已购产品
+   */
+  postAssetProfile() {
+    return new Promise((resolve) => {
+      FundStore.postYonghuChanpin({
+        data: {
+          action: 'yonghuChanpin',
+          cid: sessionStorage.getItem('cid'),
+          idCard: sessionStorage.getItem('idCard'),
+          company_type: sessionStorage.getItem('company_type'),
+        }
+      }, (res) => {
+        let echoFundProductsTpl = Tool.renderTpl(fundProducts, res);
+        $('.tab1BlockItem').html('').append($(echoFundProductsTpl));
+        resolve('c');
+      })
+    })
   }
 
 

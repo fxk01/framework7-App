@@ -126,33 +126,35 @@ export default class Complaint extends widget {
       btnActivation.removeClass('btn--activate');
       btnActivation.addClass('btn--waiting');
     }
-    LoginStore.postUserLogin({
-      data: {
-        action: 'UserLogin',
-        cid: sessionStorage.getItem('cid'),
-        company_type: sessionStorage.getItem('company_type'),
-        username: vaLi.name,
-        password: vaLi.passWd,
-      }
-    }, (res) => {
-      if(res['result'] === 'NumNG') {
-        myApp.alert('账号或密码错误！', '提示');
-      } else if(res.result === 'InterNG') {
-        myApp.alert('网络故障。', '提示');
-      }else if(res.result === 'RoleNG') {
-        myApp.alert('该用户目前暂无任何角色，无法登录。', '提示');
-      } else {
-        for(let key in res) {
-          if(key !== 'result') {
-            sessionStorage.setItem(key, res[key]);
+    setTimeout(() => {
+      LoginStore.postUserLogin({
+        data: {
+          action: 'UserLogin',
+          cid: sessionStorage.getItem('cid'),
+          company_type: sessionStorage.getItem('company_type'),
+          username: vaLi.name,
+          password: vaLi.passWd,
+        }
+      }, (res) => {
+        if(res['result'] === 'NumNG') {
+          myApp.alert('账号或密码错误！', '提示');
+        } else if(res.result === 'InterNG') {
+          myApp.alert('网络故障。', '提示');
+        }else if(res.result === 'RoleNG') {
+          myApp.alert('该用户目前暂无任何角色，无法登录。', '提示');
+        } else {
+          for(let key in res) {
+            if(key !== 'result') {
+              sessionStorage.setItem(key, res[key]);
+            }
+          }
+          if(sessionStorage.getItem('company_type') === '1') {
+            mainView.router.loadPage(`page/fund.html`);
           }
         }
-        if(sessionStorage.getItem('company_type') === '1') {
-          mainView.router.loadPage(`page/fund.html`);
-        }
-      }
-      btnActivation.removeClass('btn--waiting');
-      btnActivation.addClass('btn--activate');
-    });
+        btnActivation.removeClass('btn--waiting');
+        btnActivation.addClass('btn--activate');
+      });
+    }, 1500);
   }
 };

@@ -1,9 +1,8 @@
 /**
  * A plugin for Framework7 to show black little toasts
  *
- * @author lkm
- * @license MIT
  */
+
 Framework7.prototype.plugins.toast = function (app, globalPluginParams) {
   'use strict';
 

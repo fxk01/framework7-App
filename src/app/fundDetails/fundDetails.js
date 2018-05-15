@@ -8,6 +8,8 @@ import fundDetailHtml from '../../page/fundDetails.html';
 import fundDetailTpl from './fundDetails.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
+import fundGdInFo from '../../components/fundGood-info/fundGood-info.html'
+import fundDetailStore from '../../store/fundDetail_store';
 import highCharts from 'highcharts';
 
 export default class fundDetail extends widget {
@@ -18,7 +20,7 @@ export default class fundDetail extends widget {
   init(page) {
     let viewMainDom = $('.view-main').attr('data-page');
     if(viewMainDom !== 'fundDetails') {
-      $('.view-main').attr('data-page', 'fundDetail');
+      $('.view-main').attr('data-page', 'fundDetails');
       $('.pages').append(fundDetailHtml);
       $('.fundDetail-page').remove();
       $('.fundDetail-page').addClass('page-on-center');
@@ -54,9 +56,35 @@ export default class fundDetail extends widget {
     let calendarDefault = myApp.calendar({
       input: '#calendarDate',
     });
-    this.postNetValue();
-    this.monthlyIncome();
+    this.fundGoodInfo();
+    // this.postNetValue();
+    // this.monthlyIncome();
   }
+  /*
+   获取基金产品信息
+   */
+  fundGoodInfo() {
+    fundDetailStore.postChanPin({
+      data: {
+        action: 'chanpin',
+        ChanPinCode: Tool.parseURL('code'),
+        cid: sessionStorage.getItem('cid'),
+      }
+    }, (res) => {
+      console.log(res)
+      let json = res['chanpin'];
+      json['total_unit_net_worth'] = json.total_unit_net_worth.toFixed(4);
+      json['create_date'] = json['create_date'].substring(0, 11).replace(/\//g, ".");
+      json['unit_net_worth_date'] = json['unit_net_worth_date'].replace(/\//g, ".");
+      json['year_return_rate'] = (json['year_return_rate']).toFixed(1);
+      json['found'] = ((json['total_unit_net_worth'] - 1) * 100).toFixed(1);
+      let echoFundGdInFoTpl = Tool.renderTpl(fundGdInFo, json);
+      $('.sdx-fund-userInformation').html('').append($(echoFundGdInFoTpl));
+
+    })
+  }
+
+
   postNetValue() {
     highCharts.chart('containerJzZs', {
       chart: {

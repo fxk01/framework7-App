@@ -20,6 +20,7 @@ export default class Fund extends widget {
   constructor() {
     super();
     this.show = false;
+    this.showGood = false;
   }
 
   init() {
@@ -28,6 +29,7 @@ export default class Fund extends widget {
     if(viewMainDom !== 'fund') {
       $('.view-main').attr('data-page', 'fund');
       $('.pages').append(fundHtml);
+      $('.fund-page').remove();
       $('.fund-page').addClass('page-on-center');
     }
     myApp.closeModal('.modal-main');
@@ -38,9 +40,8 @@ export default class Fund extends widget {
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
     this.fundHomeData();
     this.fundListContent();
-    $('.showHdAssets').on('click', (e) => {
-      this.showAssets(e);
-    });
+    $('.showHdAssets').on('click', (e) => { this.showAssets(e); });
+    $('.showFundGoods').on('click', (e) => { this.showGoods(e); });
     $('.pullFundHome').on('refresh', () => { this.fundHomeData(); });
     $('.pullFund').on('refresh', () => {
       this.fundListContent().then(function(str) {
@@ -262,6 +263,19 @@ export default class Fund extends widget {
       $('.hideMoney').show();
       e.target.src = '../src/assets/images/home_closeeye.png';
       this.show = true;
+    }
+  }
+  showGoods(e) {
+    if(this.showGood) {
+      $('.showGoodField').show();
+      $('.hideGoods').hide();
+      e.target.src = '../src/assets/images/home_openeye.png';
+      this.showGood = false;
+    } else {
+      $('.showGoodField').hide();
+      $('.hideGoods').show();
+      e.target.src = '../src/assets/images/home_closeeye.png';
+      this.showGood = true;
     }
   }
 };

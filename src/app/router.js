@@ -20,6 +20,7 @@ export default {
     $(document).on('pageBeforeInit', (e) => {
       e.srcElement.innerHTML = Utils.renderTpl(e.srcElement.innerHTML, {});
       that.pageBeforeInit(e.detail.page);
+      return;
     });
 
     window.addEventListener('popstate', function(e) {

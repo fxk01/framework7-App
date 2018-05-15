@@ -50,4 +50,13 @@ export default class widget {
     }
     return label;
   }
+  removeArrValue(arr1) {
+    let arr = [];
+    for(let i = 0; i < arr1.length; i++){
+      if(arr.indexOf(arr1[i]) === -1){
+        arr.push(arr1[i]);
+      }
+    }
+    return arr;
+  }
 };

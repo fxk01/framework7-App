@@ -1,0 +1,75 @@
+<a href="#" class="item-content item-link sdx-fund-hg">
+  <div class="item-media">
+    <img src="../../assets/images/product_zs.png">
+  </div>
+  <div class="item-inner">
+    <div class="item-title sdx-fund-myTitle2">产品绩效</div>
+  </div>
+</a>
+<div class="accordion-item-content sdx-content-bdBd">
+  <div class="content-block">
+    <div class="row sdx-row-cpJx">
+      <div class="col-auto" style="margin-left: 0.25rem;">
+        <p class="sdx-fund-nl">{{annualized_return_ratio}}<span>%</span></p>
+        <p class="sdx-fund-144">年化收益率</p>
+      </div>
+      <div class="col-auto">
+        <p class="sdx-fund-nl2">-{{max_drawdown_ratio}}<span>%</span></p>
+        <p class="sdx-fund-144">最大回撤率</p>
+      </div>
+      <div class="col-auto">
+        <p class="sdx-fund-nl2">{{sharpe_ratio}}<span>%</span></p>
+        <p class="sdx-fund-144">sharpe比率</p>
+      </div>
+      <div class="col-auto">
+        <p class="sdx-fund-nl2">{{calmar_ratio}}<span>%</span></p>
+        <p class="sdx-fund-144">calmar比率</p>
+      </div>
+    </div>
+
+    <div class="sdx-fund-asset">
+      <div class="sdx-fund-bzFf" style="vertical-align: middle;"></div>
+      <h1 class="sdx-fund-jZzs">净值走势</h1>
+      <div class="sdx-fund-assetTrend" style="border-bottom: 5px solid #ebefee;">
+        <div id="containerJzZs" class="containerJzZs"></div>
+      </div>
+
+      <div class="sdx-fund-bzFf" style="vertical-align: middle;"></div>
+      <h1 class="sdx-fund-jZzs">月度收益</h1>
+      <div class="sdx-fund-stZxt">
+        <label style="display: inline-block;">
+          <span>全部</span>
+          <img src="../../assets/images/product_right.png" id="pickerZxt">
+        </label>
+      </div>
+      <div class="sdx-fund-assetTrend">
+        <div id="containerYdSy" class="containerYdSy"></div>
+      </div>
+    </div>
+
+    <div class="list-group group053">
+      <ul>
+        <li class="list-group-title list-group-titleYdSy">
+          <label style="display: inline-block;">
+            <span class="monSyText">全部</span>
+          </label>
+        </li>
+        <li>
+          <div class="item-content">
+            <div class="item-inner item-titlePd0">
+              <div class="item-title ydList">
+                {{#each this.yueshouyi}}
+                <div class="row rowMt0">
+                  <div class="col-auto br0"><span>{{format}}</span></div>
+                  <div class="col-auto br0"><span class="rgb144">盈亏&nbsp;&nbsp;</span><span>{{return_ratio}}%</span></div>
+                  <div class="col-auto br0"><span class="rgb144">回撤&nbsp;&nbsp;</span><span>{{withdrawal_rate}}%</span></div>
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

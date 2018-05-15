@@ -23,18 +23,23 @@ export default class Fund extends widget {
     this.showGood = false;
   }
 
-  init() {
+  init(page) {
+    let fundPageDom = $('.fund-page');
     let _idCard = sessionStorage.getItem('idCard');
     let viewMainDom = $('.view-main').attr('data-page');
     if(viewMainDom !== 'fund') {
       $('.view-main').attr('data-page', 'fund');
       $('.pages').append(fundHtml);
-      $('.fund-page').remove();
-      $('.fund-page').addClass('page-on-center');
+      fundPageDom.remove();
+      fundPageDom.addClass('page-on-center');
     }
     myApp.closeModal('.modal-main');
     let _fundTpl = Tool.renderTpl(fundTpl);
-    $('.fund-page').show().append($(_fundTpl));
+    fundPageDom.html('').append($(_fundTpl));
+    if(fundPageDom.length === 0) {
+      $('.fund-page').attr('class', 'page fund-page page-on-center');
+      $('.fund-page').html('').append($(_fundTpl));
+    }
     $('.userFundInformation').append(userFdInformation);
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));

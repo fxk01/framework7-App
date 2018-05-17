@@ -28,51 +28,23 @@
             <div class="content-block">
               <div class="sdx-fund-stZxt" style="width: 90%;">
                 <label style="display: inline-block;">
-                  <span>2016/</span>
-                  <!--<img src="../../assets/images/product_right.png">-->
-                  <span>03</span>
-                  <img src="../../assets/images/product_right.png" id="calendarDate">
+                  <span class="dateYearValue"></span>
+                  <img src="../../assets/images/product_right.png" id="calendarDateYear">
+                  <span class="dateMonthValue"></span>
+                  <img src="../../assets/images/product_right.png" id="calendarDateMonth">
                 </label>
               </div>
 
               <div class="sdx-fund-lsJz"></div>
 
               <div class="list-group group053">
-                <ul>
-                  <li class="list-group-title list-group-titleLsJz" style="margin-bottom: 10px;">
-                    <div class="row rowMt0">
-                      <div class="col-auto br0"><span class="sdx-fund-12px144">日期</span></div>
-                      <div class="col-auto br0" style="width: 35%;"><span class="sdx-fund-12px144">净值日增长率</span></div>
-                      <div class="col-auto br0"><span class="sdx-fund-12px144">累计净值</span></div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-inner item-titlePd0">
-                        <div class="item-title">
-                          <div class="row rowMt0">
-                            <div class="col-auto br0"><span>1月</span></div>
-                            <div class="col-auto br0"><span class="rgb144"></span><span>35.7%</span></div>
-                            <div class="col-auto br0"><span class="rgb144"></span><span>-6.8%</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="item-content">
-                      <div class="item-inner item-titlePd0">
-                        <div class="item-title">
-                          <div class="row rowMt0">
-                            <div class="col-auto br0"><span>1月</span></div>
-                            <div class="col-auto br0"><span class="rgb144"></span><span>35.7%</span></div>
-                            <div class="col-auto br0"><span class="rgb144"></span><span>-6.8%</span></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
+                <div class="list-group-titleLsJz row rowMt0" style="margin-bottom: 10px;">
+                  <div class="col-auto br0"><span class="sdx-fund-12px144">日期</span></div>
+                  <div class="col-auto br0" style="width: 35%;"><span class="sdx-fund-12px144">净值日增长率</span></div>
+                  <div class="col-auto br0"><span class="sdx-fund-12px144">累计净值</span></div>
+                </div>
+
+                <ul class="historicalNetValue"></ul>
               </div>
             </div>
           </div>
@@ -88,128 +60,7 @@
           </a>
           <div class="accordion-item-content">
             <div class="content-block">
-              <div class="productElement">
-                <table>
-                  <tbody>
-                  <tr>
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">产品风险等级</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">投资者风格要求</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">运营外包机构</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">托管方</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">存续期</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">封闭期</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top" style="border-right: none;">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">开放频率</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top" style="border-right: none;">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">投资范围</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top" style="border-right: none;">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">投资策略</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">预警线</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">止损线</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top" style="border-right: none;">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">风控措施</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">认购费</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">申购费</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">赎回费</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">管理费</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">投资顾问费</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">销售服务费</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">托管费</span>
-                    </td>
-                    <td class="sdx-fund-yaoSuBr2" valign="top">
-                      <span class="grb50">平衡型</span>
-                      <span class="sdx-fund-yaoSuBl">运营外包费</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top" style="border-right: none;">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">业绩报酬</span>
-                    </td>
-                  </tr>
-                  <tr class="sdx-tab2-btHs">
-                    <td class="sdx-fund-yaoSuBr" valign="top" style="border-right: none;">
-                      <span class="grb50">R3中风险</span>
-                      <span class="sdx-fund-yaoSuBl">分红方式</span>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
+              <div class="productElement"></div>
             </div>
           </div>
         </li>

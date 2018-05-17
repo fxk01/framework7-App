@@ -14,4 +14,12 @@ export default {
     };
     request(params, 'POST', callback);
   },
+  postChanpinYaoSu(params, callback) {
+    params.path = 'data';
+    params.assign = {
+      result: false,
+      chanPinYaoSuList: [],
+    };
+    request(params, 'POST', callback);
+  }
 };

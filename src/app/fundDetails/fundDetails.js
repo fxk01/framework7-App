@@ -10,6 +10,8 @@ import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
 import fundGdInFo from '../../components/fundGood-info/fundGood-info.html';
 import ydsyTpl from '../../components/ydsyTpl/ydsyTpl.html';
+import HistoricalNetTpl from '../../components/fund-netValue/fund-netValue.html';
+import fundProductElemTpl from '../../components/fund-productElem/fund-productElem.html';
 import fundPerForManCe from '../../components/fund-performance/fund-performance.html';
 import fundDetailStore from '../../store/fundDetail_store';
 import highCharts from 'highcharts';
@@ -34,10 +36,8 @@ export default class fundDetail extends widget {
       fundDetailPageDom.attr('class', 'page fund-page page-on-center');
       fundDetailPageDom.html('').append($(_fundDetailTpl));
     }
-    let calendarDefault = myApp.calendar({
-      input: '#calendarDate',
-    });
     this.fundGoodInfo();
+    this.productElements();
   }
   /*
    获取基金产品信息
@@ -51,6 +51,7 @@ export default class fundDetail extends widget {
       }
     }, (res) => {
       let json = res['chanpin'];
+      this.netValue = [...res['chanpin']['lishijingzhi']];
       let dateArr = [];
       json['total_unit_net_worth'] = json.total_unit_net_worth.toFixed(4);
       json['create_date'] = json['create_date'].substring(0, 11).replace(/\//g, ".");
@@ -61,7 +62,7 @@ export default class fundDetail extends widget {
       $('.sdxEchoCpInfo').html('').append($(echoFundGdInFoTpl));
       for(let j = 0; j < json['yueshouyi'].length; j++) {
         let getTime = new Date(json['yueshouyi'][j].date).getTime();
-        json['yueshouyi'][j].format = new Date(getTime).getFullYear() + '年' +  new Date(getTime).getMonth() + '月';
+        json['yueshouyi'][j].format = new Date(getTime).getFullYear() + '年' +  (new Date(getTime).getMonth() + 1) + '月';
         json['yueshouyi'][j].year = new Date(getTime).getFullYear();
         dateArr.push(new Date(getTime).getFullYear());
       }
@@ -69,6 +70,7 @@ export default class fundDetail extends widget {
       $('.fundPerForManCe').html('').append($(Tool.renderTpl(fundPerForManCe, json)));
       this.postNetValue(json['lishijingzhi']);
       this.monthlyIncome(json['yueshouyi'], formatArr, json);
+      this.HistoricalNetVal(formatArr, json['lishijingzhi']);
     })
   }
   /*
@@ -86,6 +88,7 @@ export default class fundDetail extends widget {
       dateSFM = /\d{4}[/]\d{1,2}[/]\d{1,2}/g.exec(jz[i].date);
       _categories.push(dateSFM[0]);
     }
+
     highCharts.chart('containerJzZs', {
       chart: {
         type: 'spline'
@@ -180,7 +183,7 @@ export default class fundDetail extends widget {
         } else {
           _newData = [...syJson];
         }
-        console.log(_newData);
+        $('.monthlyQb').text(p.value[0]);
         $('.monSyText').text(p.value[0]);
         _jsonRes['yueshouyi'] = _newData;
         self.againDrawMonthlyIncome(_newData, _jsonRes);
@@ -284,5 +287,117 @@ export default class fundDetail extends widget {
         }
       }]
     });
+  }
+  /*
+   获取历史净值
+   */
+  HistoricalNetVal(formatArr, historyZz) {
+    let self = this;
+    $('.dateYearValue').text(formatArr[formatArr.length - 1]);
+    let _hisZz = historyZz;
+    let _arrDate = [];
+    let hash = {};
+    let oldMonth = [];
+    let lastArr = [];
+
+    for(let i = 0; i < _hisZz.length; i++) {
+      let getTime = new Date(_hisZz[i].date).getTime();
+      _arrDate.push({
+        year: new Date(getTime).getFullYear(),
+        monthStr: new Date(getTime).getMonth() + 1,
+        month: [new Date(getTime).getMonth() + 1],
+        ..._hisZz[i],
+        forDate: _hisZz[i].date.substring(5, 10).replace(/\//g, '.'),
+      });
+    }
+
+    _arrDate.filter((val) => {
+      if(val.year === _arrDate[_arrDate.length - 1].year && val.month === _arrDate[_arrDate.length - 1].month) {
+        lastArr.push(val);
+      }
+    });
+    oldMonth = [...lastArr];
+    $('.historicalNetValue').html('').append($(Tool.renderTpl(HistoricalNetTpl, lastArr)));
+
+    myApp.picker({
+      input: '#calendarDateYear',
+      cols: [
+        {
+          textAlign: 'center',
+          values: [...formatArr],
+          displayValue: [...formatArr],
+        }
+      ],
+      toolbarCloseText: '完成',
+      closeByOutsideClick: true,
+      onClose: function(p) {
+        let newYearArr = [];
+        let newMonthArr = [];
+        $('.dateYearValue').text(p.value[0]);
+        lastArr.splice(0, lastArr.length);
+        oldMonth.splice(0, oldMonth.length);
+        _arrDate.filter((val) => {
+          if(val.year === parseInt(p.value[0])) {
+            lastArr.push(val);
+          }
+        });
+        let maxi = 0;
+        for (let k = 0; k < lastArr.length; k++) {
+          newMonthArr.push(lastArr[k].monthStr);
+          if (lastArr[k].monthStr > lastArr[maxi].monthStr) {
+            newYearArr.push(lastArr[k]);
+          } else {
+            oldMonth.push(lastArr[k])
+          }
+        }
+        if(newYearArr.length < 1) {
+          newYearArr = lastArr;
+        }
+        myPickerMonth.params.cols[0].values = self.removeArrValue(newMonthArr);
+        myPickerMonth.params.cols[0].value = self.removeArrValue(newMonthArr);
+        myPickerMonth.params.cols[0].displayValue = self.removeArrValue(newMonthArr);
+        $('.dateMonthValue').text(newYearArr[0].monthStr);
+        $('.historicalNetValue').html('').append($(Tool.renderTpl(HistoricalNetTpl, newYearArr)));
+      },
+    });
+
+    $('.dateMonthValue').text(_arrDate[_arrDate.length - 1].month);
+    let myPickerMonth = myApp.picker({
+      input: '#calendarDateMonth',
+      cols: [
+        {
+          textAlign: 'center',
+          values: _arrDate[_arrDate.length - 1].month,
+        }
+      ],
+      toolbarCloseText: '完成',
+      closeByOutsideClick: true,
+      onClose: function (p) {
+        let _val = $('.dateYearValue').text();
+        let list = [];
+        _arrDate.filter((val) => {
+          if(val.monthStr === parseInt(p.params.cols[0].value) && val.year === parseInt(_val)) {
+            list.push(val);
+          }
+        });
+        $('.dateMonthValue').text(p.params.cols[0].value);
+        $('.historicalNetValue').html('').append($(Tool.renderTpl(HistoricalNetTpl, list)));
+      },
+    });
+  }
+  /*
+   获取产品要素
+   */
+  productElements() {
+    fundDetailStore.postChanpinYaoSu({
+      data: {
+        action: 'ChanpinYaoSu',
+        cid: sessionStorage.getItem('cid'),
+        chanpinCode: Tool.parseURL('code'),
+      }
+    }, (res) => {
+      let echoFundProductElemTpl = Tool.renderTpl(fundProductElemTpl, res);
+      $('.productElement').html('').append($(echoFundProductElemTpl));
+    })
   }
 };

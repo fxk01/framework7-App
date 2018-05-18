@@ -11,9 +11,10 @@ import {
   Fund,
   FundDetail,
   Reservation,
-  RundBulletin,
+  FundBulletin,
+  FundNoticeDetails,
 } from './page';
-import mainModule from './main/main';
+import Main from './main/main';
 import Utils from '../utils/tool';
 
 export default {
@@ -51,7 +52,7 @@ export default {
     }
     switch (page.name) {
       case 'main':
-        new mainModule().init(page);
+        new Main().init(page);
         break;
       case 'record':
         new Record().init(page);
@@ -72,7 +73,10 @@ export default {
         new Reservation().init(page);
         break;
       case 'fundBulletin':
-        new RundBulletin().init(page);
+        new FundBulletin().init(page);
+        break;
+      case 'fundNoticeDetails':
+        new FundNoticeDetails().init(page);
         break;
       default:
         break;

@@ -1,11 +1,13 @@
 <ul>
   {{#each ChanPinGongGao}}
   <li>
-    <p class="sdx-bull-p">{{title}}</p>
-    <div>
-      <img src="../../assets/images/product_nz.png" style="vertical-align: middle;">
-      <span>&nbsp;&nbsp;&nbsp;{{create_timestamp}}&nbsp;&nbsp;&nbsp;</span>
-    </div>
+    <a href="page/fundNoticeDetails.html?code={{code}}&id={{id}}" style="display: block; padding: 0.6rem;">
+      <p class="sdx-bull-p">{{title}}</p>
+      <div>
+        <img src="../../assets/images/product_nz.png" style="vertical-align: middle;">
+        <span style="color: gray;">&nbsp;&nbsp;&nbsp;{{create_timestamp}}&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </a>
   </li>
   {{/each}}
 </ul>

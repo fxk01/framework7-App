@@ -11,7 +11,7 @@ import widget from '../../utils/widget';
 import ggListTpl from '../../components/fund-ggList/fund-ggList.html';
 import fundBulletinStore from '../../store/fund_bulletin';
 
-export default class Record extends widget {
+export default class FundBulletin extends widget {
   init() {
     let viewMainDom = $('.view-main').attr('data-page');
     if(viewMainDom !== 'fundBulletin') {
@@ -51,7 +51,7 @@ export default class Record extends widget {
           let year = da.getFullYear() + '年';
           let month = da.getMonth() + 1 + '月';
           let date = da.getDate() + '日';
-          _json.ChanPinGongGao[i]['create_timestamp'] = [year,month,date].join('');
+          _json.ChanPinGongGao[i]['create_timestamp'] = [year, month, date].join('');
         }
         let _ggListTpl = Tool.renderTpl(ggListTpl, res);
         $('.rgFlagListTrue').html('').append($(_ggListTpl));

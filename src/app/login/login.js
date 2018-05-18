@@ -12,7 +12,7 @@ import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
 import LoginStore from '../../store/login_store';
 
-export default class Complaint extends widget {
+export default class Login extends widget {
   static defaultHtml = {
     tem: `<div style="text-align: left;">尊敬的投资者</div>`,
   };

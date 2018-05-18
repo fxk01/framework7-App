@@ -16,31 +16,43 @@ import fundPerForManCe from '../../components/fund-performance/fund-performance.
 import fundDetailStore from '../../store/fundDetail_store';
 import highCharts from 'highcharts';
 
-export default class fundDetail extends widget {
+export default class FundDetail extends widget {
   constructor() {
     super();
   }
 
   init(page) {
-    let fundDetailPageDom = $('.fundDetail-page');
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'fundDetails') {
-      $('.view-main').attr('data-page', 'fundDetails');
-      $('.pages').append(fundDetailHtml);
-      fundDetailPageDom.remove();
-      fundDetailPageDom.addClass('page-on-center');
+    try {
+      let fundDetailPageDom = $('.fundDetails-page');
+      let viewMainDom = $('.view-main').attr('data-page');
+      if(viewMainDom !== 'fundDetails') {
+        $('.view-main').attr('data-page', 'fundDetails');
+        $('.pages').append(fundDetailHtml);
+        fundDetailPageDom.remove();
+        fundDetailPageDom.addClass('page-on-center');
+      }
+      let _fundDetailTpl = Tool.renderTpl(fundDetailTpl, {
+        code: Tool.parseURL('code'),
+      });
+      $('.fundDetails-page').html('').append($(_fundDetailTpl));
+      if(fundDetailPageDom.length === 0) {
+        fundDetailPageDom.attr('class', 'page fundDetails-page page-on-center');
+        fundDetailPageDom.html('').append($(_fundDetailTpl));
+      }
+
+      $('.reservationHref').on('click',() => { mainView.router.loadPage(`page/reservation.html?code=${Tool.parseURL('code')}&name=${encodeURI($('.sdx-fund-jjCpH1').text())}`); });
+      this.fundGoodInfo();
+      this.productElements();
+
+      let reValue = $('#root').children()[1].attributes[0].value;
+      if(reValue === 'reservation') {
+        setTimeout(function () {
+          $('.fund-page').remove();
+        }, 500);
+      }
+    } catch (e) {
+      console.log(e.message);
     }
-    let _fundDetailTpl = Tool.renderTpl(fundDetailTpl, {
-      code: Tool.parseURL('code'),
-    });
-    $('.fundDetails-page').html('').append($(_fundDetailTpl));
-    if(fundDetailPageDom.length === 0) {
-      fundDetailPageDom.attr('class', 'page fund-page page-on-center');
-      fundDetailPageDom.html('').append($(_fundDetailTpl));
-    }
-    $('.reservationHref').on('click',() => { mainView.router.loadPage(`page/reservation.html?code=${Tool.parseURL('code')}&name=${encodeURI($('.sdx-fund-jjCpH1').text())}`); });
-    this.fundGoodInfo();
-    this.productElements();
   }
   /*
    获取基金产品信息

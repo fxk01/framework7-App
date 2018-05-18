@@ -49,7 +49,7 @@ export default class Fund extends widget {
     this.fundListContent();
     $('.showHdAssets').on('click', (e) => { this.showAssets(e); });
     $('.showFundGoods').on('click', (e) => { this.showGoods(e); });
-    $('.fundTab2Accordion').on('click', 'ul .accordion-item', function() { let itemSelf = $(this); self.openData(itemSelf); });
+    $('.fundTab2Accordion').on('click', '.infoListGoods .accordion-item', function() { let itemSelf = $(this); self.openData(itemSelf); });
     $('.pullFundHome').on('refresh', () => { this.fundHomeData(); });
     $('.pullFund').on('refresh', () => {
       this.fundListContent().then(function(str) {
@@ -293,15 +293,7 @@ export default class Fund extends widget {
    设置openData及跳转
    */
   openData(itemSelf) {
-    this.open('jjcp_detail2.html', 'tag', {
-      chanpinid: itemSelf[0].attributes[5].value,
-      chanpincode: itemSelf[0].attributes[6].value,
-      chanpinjixiao_role: itemSelf[0].attributes[1].value,
-      lishijingzhi_role: itemSelf[0].attributes[2].value,
-      chanpinyaosu_role: itemSelf[0].attributes[3].value,
-      chanpingonggao_role: itemSelf[0].attributes[4].value,
-    });
-    sessionStorage.setItem('chanPinId', itemSelf[0].attributes[5].value);
-    mainView.router.loadPage(`page/fundDetails.html?code=${itemSelf[0].attributes[6].value}`);
+    sessionStorage.setItem('chanPinId', itemSelf.attr('data-chanpinid'));
+    mainView.router.loadPage(`page/fundDetails.html?code=${itemSelf.attr('data-chanpincode')}`);
   }
 };

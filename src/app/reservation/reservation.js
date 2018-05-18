@@ -25,7 +25,7 @@ export default class Reservation extends widget {
     });
     reservationPageDom.html('').append($(_reservationTpl));
     if(reservationPageDom.length === 0) {
-      reservationPageDom.attr('class', 'page fundDetails-page page-on-center');
+      reservationPageDom.attr('class', 'page reservation-page page-on-center');
       $('.reservation-page').html('').append($(_reservationTpl));
     }
     $('.ac-sg').on('click', () => { this.clickSg(); });
@@ -132,8 +132,7 @@ export default class Reservation extends widget {
           buttons: [
             {
               text: `<div style="width: 100%; height: 2.5rem;"><img src="../../../src/assets/images/confirm.png"></div>`,
-              onClick: function() {
-
+              onClick: function () {
               }
             },
           ]

@@ -1,0 +1,13 @@
+<ul>
+  {{#each ChanPinGongGao}}
+  <li style="padding: 0.5rem;">
+    <h1 class="sdx-bull-p" style="margin: 0;">{{title}}</h1>
+    <div style="text-align: right; margin: 0.5rem 0 1rem 0;">
+      <span style="color: gray;">&nbsp;&nbsp;&nbsp;{{create_timestamp}}&nbsp;&nbsp;&nbsp;</span>
+    </div>
+    <div style="font-size: 14px;">
+      {{content}}
+    </div>
+  </li>
+  {{/each}}
+</ul>

@@ -36,6 +36,7 @@ export default class fundDetail extends widget {
       fundDetailPageDom.attr('class', 'page fund-page page-on-center');
       fundDetailPageDom.html('').append($(_fundDetailTpl));
     }
+    $('.reservationHref').on('click',() => { mainView.router.loadPage(`page/reservation.html?code=${Tool.parseURL('code')}&name=${encodeURI($('.sdx-fund-jjCpH1').text())}`); });
     this.fundGoodInfo();
     this.productElements();
   }
@@ -68,9 +69,31 @@ export default class fundDetail extends widget {
       }
       let formatArr = this.removeArrValue(dateArr);
       $('.fundPerForManCe').html('').append($(Tool.renderTpl(fundPerForManCe, json)));
+      this.productRequirements();
       this.postNetValue(json['lishijingzhi']);
       this.monthlyIncome(json['yueshouyi'], formatArr, json);
       this.HistoricalNetVal(formatArr, json['lishijingzhi']);
+    })
+  }
+  /*
+   获取产品风格要求
+   */
+  productRequirements() {
+    fundDetailStore.postChanpinFenggeyaoqiu({
+      data: {
+        action: 'ChanpinFenggeyaoqiu',
+        cid: sessionStorage.getItem('cid'),
+        chanpinCode: Tool.parseURL('code'),
+        tongxingzhen: sessionStorage.getItem('idCard'),
+      }
+    }, (res) => {
+      if(res.is_rgFlag === undefined) {
+        $('.rgFlagFalse').show();
+        $('.rgFlagTrue').hide();
+      } else {
+        $('.rgFlagFalse').hide();
+        $('.rgFlagTrue').show();
+      }
     })
   }
   /*
@@ -293,12 +316,20 @@ export default class fundDetail extends widget {
    */
   HistoricalNetVal(formatArr, historyZz) {
     let self = this;
+    self.fitData = false;
+    self.monthDataFit = false;
     $('.dateYearValue').text(formatArr[formatArr.length - 1]);
     let _hisZz = historyZz;
     let _arrDate = [];
-    let hash = {};
+    let hashArr = [];
+    let hashArr2 = [];
     let oldMonth = [];
     let lastArr = [];
+    let lastArr2 = [];
+    let lastArr3 = [];
+    let lastArr4 = [];
+    let lastArr5 = [];
+    let valLeg = [];
 
     for(let i = 0; i < _hisZz.length; i++) {
       let getTime = new Date(_hisZz[i].date).getTime();
@@ -311,13 +342,45 @@ export default class fundDetail extends widget {
       });
     }
 
-    _arrDate.filter((val) => {
-      if(val.year === _arrDate[_arrDate.length - 1].year && val.month === _arrDate[_arrDate.length - 1].month) {
-        lastArr.push(val);
+    _arrDate.filter((val, item) => {
+      if(_arrDate[0].year !== _arrDate[item].year) {
+        self.fitData = true;
+        if(_arrDate[_arrDate.length - 1].year.toString() === val.year.toString()) {
+          hashArr2.push(_arrDate[item].monthStr);
+          lastArr2.push(val);
+          lastArr2.forEach((v, l) => {
+            if (lastArr2[l].monthStr > lastArr2[0].monthStr) {
+              self.monthDataFit = true;
+              lastArr3.push(lastArr2[l]);
+            } else {
+              lastArr4.push(lastArr2[l]);
+            }
+          })
+        }
+      } else {
+        if(!self.fitData) {
+          hashArr.push(_arrDate[item].monthStr);
+          valLeg.push(val);
+          if(_arrDate[0].monthStr < _arrDate[item].monthStr) {
+            lastArr.push(val);
+          } else {
+            lastArr5.push(val);
+          }
+        }
       }
     });
     oldMonth = [...lastArr];
-    $('.historicalNetValue').html('').append($(Tool.renderTpl(HistoricalNetTpl, lastArr)));
+    hashArr = self.removeArrValue(hashArr);
+    if(!self.monthDataFit) {
+      lastArr3 = lastArr4;
+    }
+    if(valLeg.length === 1) {
+      lastArr = valLeg;
+    }
+    if(!self.fitData && valLeg.length > 1) {
+      lastArr = lastArr5;
+    }
+    $('.historicalNetValue').html('').append($(Tool.renderTpl(HistoricalNetTpl, self.fitData ? lastArr3 : lastArr)));
 
     myApp.picker({
       input: '#calendarDateYear',
@@ -361,13 +424,13 @@ export default class fundDetail extends widget {
       },
     });
 
-    $('.dateMonthValue').text(_arrDate[_arrDate.length - 1].month);
+    $('.dateMonthValue').text(_arrDate[0].month);
     let myPickerMonth = myApp.picker({
       input: '#calendarDateMonth',
       cols: [
         {
           textAlign: 'center',
-          values: _arrDate[_arrDate.length - 1].month,
+          values: self.fitData ? hashArr2 : hashArr,
         }
       ],
       toolbarCloseText: '完成',

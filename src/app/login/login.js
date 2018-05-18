@@ -77,7 +77,7 @@ export default class Complaint extends widget {
     function validator(target, validator, errorMsg) {
       let options = {
         onHide: function () {
-          console.log('hidden');
+          // console.log('hidden');
         },
         duration: 2000
       };

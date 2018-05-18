@@ -24,6 +24,7 @@ export default class Fund extends widget {
   }
 
   init(page) {
+    let self = this;
     let fundPageDom = $('.fund-page');
     let _idCard = sessionStorage.getItem('idCard');
     let viewMainDom = $('.view-main').attr('data-page');
@@ -43,10 +44,12 @@ export default class Fund extends widget {
     $('.userFundInformation').append(userFdInformation);
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
+
     this.fundHomeData();
     this.fundListContent();
     $('.showHdAssets').on('click', (e) => { this.showAssets(e); });
     $('.showFundGoods').on('click', (e) => { this.showGoods(e); });
+    $('.fundTab2Accordion').on('click', 'ul .accordion-item', function() { let itemSelf = $(this); self.openData(itemSelf); });
     $('.pullFundHome').on('refresh', () => { this.fundHomeData(); });
     $('.pullFund').on('refresh', () => {
       this.fundListContent().then(function(str) {
@@ -270,6 +273,9 @@ export default class Fund extends widget {
       this.show = true;
     }
   }
+  /*
+   显示隐藏资产已购产品信息
+   */
   showGoods(e) {
     if(this.showGood) {
       $('.showGoodField').show();
@@ -282,5 +288,20 @@ export default class Fund extends widget {
       e.target.src = '../src/assets/images/home_closeeye.png';
       this.showGood = true;
     }
+  }
+  /*
+   设置openData及跳转
+   */
+  openData(itemSelf) {
+    this.open('jjcp_detail2.html', 'tag', {
+      chanpinid: itemSelf[0].attributes[5].value,
+      chanpincode: itemSelf[0].attributes[6].value,
+      chanpinjixiao_role: itemSelf[0].attributes[1].value,
+      lishijingzhi_role: itemSelf[0].attributes[2].value,
+      chanpinyaosu_role: itemSelf[0].attributes[3].value,
+      chanpingonggao_role: itemSelf[0].attributes[4].value,
+    });
+    sessionStorage.setItem('chanPinId', itemSelf[0].attributes[5].value);
+    mainView.router.loadPage(`page/fundDetails.html?code=${itemSelf[0].attributes[6].value}`);
   }
 };

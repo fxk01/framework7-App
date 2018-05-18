@@ -21,5 +21,13 @@ export default {
       chanPinYaoSuList: [],
     };
     request(params, 'POST', callback);
+  },
+  postChanpinFenggeyaoqiu(params, callback) {
+    params.path = 'data';
+    params.assign = {
+      result: false,
+      is_rgFlag: '1',
+    };
+    request(params, 'POST', callback);
   }
 };

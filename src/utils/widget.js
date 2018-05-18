@@ -59,4 +59,66 @@ export default class widget {
     }
     return arr;
   }
+  getReadPower() {
+    if (sessionStorage.getItem('userType') !== '' && sessionStorage.getItem('userType') !== null) {
+      sessionStorage.setItem('readPower', 1);
+      return 1;
+    } else {
+      sessionStorage.setItem('readPower', 0);
+      return 0;
+    }
+  }
+  open(url, key, value, method) {
+    this.getOpenUrl(url, key, value);
+    // document.location = this.getOpenUrl(url, key, value);
+  }
+  getOpenUrl(url, key, value, method) {
+    let data = {};
+    data[key] = value;
+    data = encodeURIComponent(JSON.stringify(data));
+    if (method === 'url') {
+      sessionStorage.setItem('_openData', null);
+      return url + '?data=' + data + '&tag=' + (new Date()).getTime();
+    } else {
+      sessionStorage.setItem('_openData', data);
+      return url;
+    }
+  }
+  getSessionParams(key) {
+    let data = this.getUrlParameter('data');
+    if (data === null) {
+      data = sessionStorage.getItem('_openData');
+    }
+    if (data !== null) {
+      try {
+        data = JSON.parse(decodeURIComponent(data));
+
+        if (data !== null && data[key] !== null) {
+          return data[key];
+        }
+      } catch (err) {
+      }
+    }
+    let strParams = sessionStorage.getItem('sessionParams.' + key);
+
+    if (strParams !== null) {
+      return JSON.parse(strParams);
+    } else {
+      return {};
+    }
+  }
+  getUrlParameter(name) {
+    return this.urlParameters[name];
+  }
+  loadUrlParameters() {
+    this.urlParameters = {};
+    if (window.location.href.indexOf('?') > 0) {
+      let pairs = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+      for (let i = 0; i < pairs.length; i++) {
+        let pair = pairs[i].split('=');
+        this.urlParameters[pair[0]] = pair[1];
+      }
+    }
+  }
 };

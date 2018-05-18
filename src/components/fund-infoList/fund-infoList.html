@@ -1,7 +1,14 @@
 <ul>
   {{#each chanpin_list}}
-  <li class="accordion-item">
-    <a href="page/fundDetails.html?code={{code}}" class="item-content item-link">
+  <li class="accordion-item"
+      data-chanpinjixiao_role="{{chanpinjixiao_role}}"
+      data-lishijingzhi_role="{{lishijingzhi_role}}"
+      data-chanpinyaosu_role="{{chanpinyaosu_role}}"
+      data-chanpingonggao_role="{{chanpingonggao_role}}"
+      data-chanpinid="{{id}}"
+      data-chanpincode="{{code}}"
+  >
+    <a href="javascript:" class="item-content item-link">
       <div class="item-inner sdx-fund-inner">
         <div class="item-title sdx-fund-goodsList15pt2">{{name}}</div>
         <div class="item-title sdx-fund-goodsList9pt">净值日期:&nbsp;&nbsp;{{unit_net_worth_date}}</div>

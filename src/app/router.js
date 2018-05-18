@@ -10,6 +10,7 @@ import {
   Login,
   Fund,
   FundDetail,
+  Reservation,
 } from './page';
 import mainModule from './main/main';
 import Utils from '../utils/tool';
@@ -65,6 +66,9 @@ export default {
         break;
       case 'fundDetails':
         new FundDetail().init(page);
+        break;
+      case 'reservation':
+        new Reservation().init(page);
         break;
       default:
         break;

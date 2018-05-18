@@ -11,6 +11,7 @@ import {
   Fund,
   FundDetail,
   Reservation,
+  RundBulletin,
 } from './page';
 import mainModule from './main/main';
 import Utils from '../utils/tool';
@@ -69,6 +70,9 @@ export default {
         break;
       case 'reservation':
         new Reservation().init(page);
+        break;
+      case 'fundBulletin':
+        new RundBulletin().init(page);
         break;
       default:
         break;

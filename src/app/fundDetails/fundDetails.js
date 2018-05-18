@@ -30,7 +30,9 @@ export default class fundDetail extends widget {
       fundDetailPageDom.remove();
       fundDetailPageDom.addClass('page-on-center');
     }
-    let _fundDetailTpl = Tool.renderTpl(fundDetailTpl);
+    let _fundDetailTpl = Tool.renderTpl(fundDetailTpl, {
+      code: Tool.parseURL('code'),
+    });
     $('.fundDetails-page').html('').append($(_fundDetailTpl));
     if(fundDetailPageDom.length === 0) {
       fundDetailPageDom.attr('class', 'page fund-page page-on-center');
@@ -87,6 +89,7 @@ export default class fundDetail extends widget {
         tongxingzhen: sessionStorage.getItem('idCard'),
       }
     }, (res) => {
+      sessionStorage.setItem('rgFlag', res.is_rgFlag);
       if(res.is_rgFlag === undefined) {
         $('.rgFlagFalse').show();
         $('.rgFlagTrue').hide();

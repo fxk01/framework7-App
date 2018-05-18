@@ -8,3 +8,4 @@ export { default as Login } from './login/login';
 export { default as Fund } from './fund/fund';
 export { default as FundDetail } from './fundDetails/fundDetails';
 export { default as Reservation } from './reservation/reservation';
+export { default as RundBulletin } from './fundBulletin/fundBulletin';

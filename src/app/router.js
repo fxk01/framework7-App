@@ -13,6 +13,7 @@ import {
   Reservation,
   FundBulletin,
   FundNoticeDetails,
+  PurchasedProducts,
 } from './page';
 import Main from './main/main';
 import Utils from '../utils/tool';
@@ -77,6 +78,9 @@ export default {
         break;
       case 'fundNoticeDetails':
         new FundNoticeDetails().init(page);
+        break;
+      case 'purchasedProducts':
+        new PurchasedProducts().init(page);
         break;
       default:
         break;

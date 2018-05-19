@@ -39,7 +39,7 @@ export default class Login extends widget {
     $('.login-page').append($(_loginTpl));
     myApp.modal({
       title: '风险提示',
-      text: Complaint.defaultHtml.tem,
+      text: Login.defaultHtml.tem,
       buttons: [
         {
           text: '已知悉，继续浏览',

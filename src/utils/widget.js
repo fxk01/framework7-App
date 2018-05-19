@@ -121,4 +121,7 @@ export default class widget {
       }
     }
   }
+  formatUnitNetWorth(v) {
+    return v.toFixed(4);
+  }
 };

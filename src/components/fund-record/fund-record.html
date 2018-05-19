@@ -1,0 +1,42 @@
+{{#each jiaoyi}}
+<div class="list-block accordion-list">
+  <ul>
+    <li class="accordion-item">
+      <a href="#" class="item-content item-link">
+        <div class="item-inner">
+          <div class="item-title">{{name}}</div>
+        </div>
+      </a>
+      {{#each detail}}
+      <div class="accordion-item-content">
+        <div class="content-block" style="border-bottom: 1px solid #dddddd;">
+          <div class="row">
+            <div class="col-33 sdx-record-col1">
+              <img src="../../assets/images/Clock.png" style="vertical-align: middle;">
+              <span class="sdx-record-date">{{date}}</span>
+            </div>
+            <div class="col-33" style="width: 30%;">
+              <p class="color323232">认购</p>
+              <p class="color909090">
+                净值
+                <span class="color323232">{{unit_net_worth}}</span>
+              </p>
+            </div>
+            <div class="col-33" style="width: 35%;">
+              <p class="color909090">
+                本金
+                <span class="color323232">{{amount}}</span>
+              </p>
+              <p class="color909090">
+                份额
+                <span class="color323232">{{shares}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </li>
+  </ul>
+</div>
+{{/each}}

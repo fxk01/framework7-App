@@ -14,6 +14,7 @@ import {
   FundBulletin,
   FundNoticeDetails,
   PurchasedProducts,
+  UserInformation,
 } from './page';
 import Main from './main/main';
 import Utils from '../utils/tool';
@@ -81,6 +82,9 @@ export default {
         break;
       case 'purchasedProducts':
         new PurchasedProducts().init(page);
+        break;
+      case 'userInformation':
+        new UserInformation().init(page);
         break;
       default:
         break;

@@ -11,3 +11,4 @@ export { default as Reservation } from './reservation/reservation';
 export { default as FundBulletin } from './fundBulletin/fundBulletin';
 export { default as FundNoticeDetails } from './fundNoticeDetails/fundNoticeDetails';
 export { default as PurchasedProducts } from './purchasedProducts/purchasedProducts';
+export { default as UserInformation } from './userInformation/userInformation';

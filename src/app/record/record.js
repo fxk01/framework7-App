@@ -46,7 +46,6 @@ export default class Record extends widget {
         json['jiaoyi'][i].detail[i]['amount'] = this.formatNumber(json['jiaoyi'][i].detail[i]['amount'], 2);
         json['jiaoyi'][i].detail[i]['shares'] = this.formatNumber(json['jiaoyi'][i].detail[i]['shares'], 2);
       }
-      console.log(json);
       let _recordListTpl = Tool.renderTpl(recordListTpl, json);
       $('.recordList').html('').append($(_recordListTpl));
     })

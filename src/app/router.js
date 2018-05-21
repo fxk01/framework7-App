@@ -15,6 +15,7 @@ import {
   FundNoticeDetails,
   PurchasedProducts,
   UserInformation,
+  ModifyPassword,
 } from './page';
 import Main from './main/main';
 import Utils from '../utils/tool';
@@ -46,6 +47,16 @@ export default {
   },
 
   pageBeforeInit(page) {
+    window.registerUserType = '';
+    if(sessionStorage.getItem('userType') === '个人') {
+      window.registerUserType = 'gr'
+    }
+    if(sessionStorage.getItem('userType') === '机构') {
+      window.registerUserType = 'jg'
+    }
+    if(sessionStorage.getItem('userType') === '产品') {
+      window.registerUserType = 'cp'
+    }
     $('.'+page.name+'-page').html('');
     myApp.closeModal('.modal-main');
     myApp.closeModal('.modal-login');
@@ -85,6 +96,9 @@ export default {
         break;
       case 'userInformation':
         new UserInformation().init(page);
+        break;
+      case 'modifyPassword':
+        new ModifyPassword().init(page);
         break;
       default:
         break;

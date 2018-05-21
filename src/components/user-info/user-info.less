@@ -57,10 +57,7 @@
       cursor: pointer;
       font-size: 13px;
     }
-    label input {
-      display: none;
-    }
-    label span {
+    .onRadio {
       position: absolute;
       left: 0;
       top: 0;
@@ -71,7 +68,7 @@
       border: 1px solid #0090ff;
       border-radius: 100%;
     }
-    label span:after {
+    .onSelect {
       content: '';
       position: absolute;
       top: 0;
@@ -87,12 +84,7 @@
       transform: scale(0);
       transition: all.3s;
     }
-    label input:checked + span {
-      border-color: #0090ff;
-      background: #fff;
-    }
-    label input:checked +span:after {
-      content:'';
+    .onSelectScale1 {
       transform: scale(1);
     }
   }
@@ -132,5 +124,18 @@
   input[type=text] {
     font-size: 13px;
     color: #323232;
+  }
+  .sdx-info-edit {
+    display: inline-block;
+    text-align: right;
+    width: 70%;
+    float: right;
+    margin-top: 8px;
+    margin-right: 10px;
+    height: 1.18666667rem;
+  }
+  .disabled, [disabled] {
+    opacity: 1;
+    pointer-events: none;
   }
 }

@@ -14,4 +14,13 @@ export default {
     };
     request(params, 'POST', callback);
   },
+  postBcUserZcJbxx(params, callback) {
+    params.path = 'data';
+    params.assign = {
+      result: false,
+      result_B: false,
+      yongHuJbxx: {}
+    };
+    request(params, 'POST', callback);
+  },
 };

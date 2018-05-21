@@ -1,6 +1,9 @@
 <div class="list-block sdx-info-listBlock" style="height: 12.8rem; overflow-y: scroll;">
   <div class="sdx-info-jbXx">
     基本信息
+    <div class="sdx-info-edit">
+      <img src="../../assets/images/me_bianjie.png" class="infoEdit">
+    </div>
   </div>
   {{#if "this.user_type === 个人"}}
   <ul style="border-radius: 0 0 6px 6px; margin-bottom: 5px;">
@@ -10,7 +13,7 @@
         <div class="item-inner">
           <div class="item-title label">姓名</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_name}}">
+            <input type="text" placeholder="" value="{{gr_name}}" disabled="disabled" data-gr="B_gr_name">
           </div>
         </div>
       </div>
@@ -22,7 +25,7 @@
         <div class="item-inner">
           <div class="item-title label">性别</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_xb}}">
+            <input type="text" placeholder="" value="{{gr_xb}}" disabled="disabled" data-gr="B_gr_xb">
           </div>
         </div>
       </div>
@@ -34,7 +37,7 @@
         <div class="item-inner">
           <div class="item-title label">年龄</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_nl}}">
+            <input type="text" placeholder="" value="{{gr_nl}}" disabled="disabled" data-gr="B_gr_nl">
           </div>
         </div>
       </div>
@@ -46,7 +49,7 @@
         <div class="item-inner">
           <div class="item-title label">证件类型</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_card_type}}">
+            <input type="text" placeholder="" value="{{gr_card_type}}" disabled="disabled" data-gr="B_gr_card_type">
           </div>
         </div>
       </div>
@@ -58,7 +61,7 @@
         <div class="item-inner">
           <div class="item-title label">证件号码</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{id_card}}">
+            <input type="text" placeholder="" value="{{id_card}}" disabled="disabled" data-gr="id_card">
           </div>
         </div>
       </div>
@@ -70,7 +73,7 @@
         <div class="item-inner">
           <div class="item-title label">国籍</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_gj}}">
+            <input type="text" placeholder="" value="{{gr_gj}}" disabled="disabled" data-gr="B_gr_gj">
           </div>
         </div>
       </div>
@@ -82,7 +85,7 @@
         <div class="item-inner">
           <div class="item-title label">职业</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_zy}}">
+            <input type="text" placeholder="" value="{{gr_zy}}" disabled="disabled" data-gr="B_gr_zy">
           </div>
         </div>
       </div>
@@ -94,7 +97,7 @@
         <div class="item-inner">
           <div class="item-title label">职务</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_zw}}">
+            <input type="text" placeholder="" value="{{gr_zw}}" disabled="disabled" data-gr="B_gr_zw">
           </div>
         </div>
       </div>
@@ -106,7 +109,7 @@
         <div class="item-inner">
           <div class="item-title label">座机</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_zj}}">
+            <input type="text" placeholder="" value="{{gr_zj}}" disabled="disabled" data-gr="B_gr_zj">
           </div>
         </div>
       </div>
@@ -118,7 +121,7 @@
         <div class="item-inner">
           <div class="item-title label">手机</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_phone}}">
+            <input type="text" placeholder="" value="{{gr_phone}}" disabled="disabled" data-gr="B_gr_phone">
           </div>
         </div>
       </div>
@@ -130,7 +133,7 @@
         <div class="item-inner">
           <div class="item-title label">邮编</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_yb}}">
+            <input type="text" placeholder="" value="{{gr_yb}}" disabled="disabled" data-gr="B_gr_yb">
           </div>
         </div>
       </div>
@@ -142,7 +145,7 @@
         <div class="item-inner">
           <div class="item-title label">电子邮箱</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_email}}">
+            <input type="text" placeholder="" value="{{gr_email}}" disabled="disabled" data-gr="B_gr_email">
           </div>
         </div>
       </div>
@@ -154,39 +157,44 @@
         <div class="item-inner">
           <div class="item-title label">住址</div>
           <div class="item-input">
-            <input type="text" placeholder="" value="{{gr_dz}}">
+            <input type="text" placeholder="" value="{{gr_dz}}" disabled="disabled" data-gr="B_gr_dz">
           </div>
         </div>
       </div>
     </li>
   </ul>
+
   <ul style="border-radius: 6px;">
     <li>
       <div class="item-content">
         <div class="item-media"><i class="icon icon-form-name"></i></div>
         <div class="item-title label co323232">金融资产不低于500万元人民币，或者最近三年个人年均收入不低于50万元人民币</div>
       </div>
-      <div class="sdx-info-publicPrivate">
+      <div class="sdx-info-publicPrivate" data-key="B_gr_zcgm_1">
         {{#js_if "this.gr_zcgm_1 === '否'"}}
         <label style="padding-right: 66px;">
-          <input type="radio" name="public_private1" checked="checked" class="pp">
-          <span style="margin-left: -35px;"></span>
+         <span style="margin-left: -35px;" class="onRadio">
+           <span class="onSelect onSelectScale1" data-gr="否"></span>
+         </span>
           否
         </label>
         <label>
-          <input type="radio" name="public_private1" class="pp">
-          <span style="margin-left: -35px;"></span>
+         <span style="margin-left: -35px;" class="onRadio">
+           <span class="onSelect" data-gr="是"></span>
+         </span>
           是
         </label>
         {{else}}
         <label style="padding-right: 66px;">
-          <input type="radio" name="public_private1" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect" data-gr="否"></span>
+          </span>
           否
         </label>
         <label>
-          <input type="radio" name="public_private1" checked="checked" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect onSelectScale1" data-gr="是"></span>
+          </span>
           是
         </label>
         {{/js_if}}
@@ -200,27 +208,31 @@
           私募基金或者资产管理计划投资者，最近20个交易日金融资产均不得低于人民币300万元，或者最近三年个人年均收入不低于50万元
         </div>
       </div>
-      <div class="sdx-info-publicPrivate">
+      <div class="sdx-info-publicPrivate" data-key="B_gr_zcgm_2">
         {{#js_if "this.gr_zcgm_2 === '否'"}}
         <label style="padding-right: 66px;">
-          <input type="radio" name="public_private2" checked="checked" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect onSelectScale1" data-gr="否"></span>
+          </span>
           否
         </label>
         <label>
-          <input type="radio" name="public_private2" class="pp">
-          <span style="margin-left: -35px;"></span>
+         <span style="margin-left: -35px;" class="onRadio">
+           <span class="onSelect" data-gr="是"></span>
+         </span>
           是
         </label>
         {{else}}
         <label style="padding-right: 66px;">
-          <input type="radio" name="public_private2" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect" data-gr="否"></span>
+          </span>
           否
         </label>
         <label>
-          <input type="radio" name="public_private2" checked="checked" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect onSelectScale1" data-gr="是"></span>
+          </span>
           是
         </label>
         {{/js_if}}
@@ -234,27 +246,31 @@
           具有2年以上证券、基金、期货、黄金、外汇等投资经历，或者具有2年以上金融产品设计、投资、风险管理及相关工作经历，或者属于本条第（一）项规定的专业投资者的高级管理人员、获得职业资格认证的从事金融相关业务的注册会计师和律师。前款所称金融资产，是指银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货及其他衍生产品等。
         </div>
       </div>
-      <div class="sdx-info-publicPrivate">
+      <div class="sdx-info-publicPrivate" data-key="B_gr_tzjl_1">
         {{#js_if "this.gr_tzjl_1 === '否'"}}
         <label style="padding-right: 66px;">
-          <input type="radio" name="public_private" checked="checked" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect onSelectScale1" data-gr="否"></span>
+          </span>
           否
         </label>
         <label>
-          <input type="radio" name="public_private" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect" data-gr="是"></span>
+          </span>
           是
         </label>
         {{else}}
         <label style="padding-right: 66px;">
-          <input type="radio" name="public_private" class="pp">
-          <span style="margin-left: -35px;"></span>
+         <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect" data-gr="否"></span>
+          </span>
           否
         </label>
         <label>
-          <input type="radio" name="public_private" checked="checked" class="pp">
-          <span style="margin-left: -35px;"></span>
+          <span style="margin-left: -35px;" class="onRadio">
+            <span class="onSelect onSelectScale1" data-gr="是"></span>
+          </span>
           是
         </label>
         {{/js_if}}
@@ -266,27 +282,31 @@
         <div class="item-media"><i class="icon icon-form-name"></i></div>
         <div class="item-title label co323232">
           是否存在实际控制关系
-          <div class="sdx-info-publicPrivate sdx-info-jux">
+          <div class="sdx-info-publicPrivate sdx-info-jux" data-key="B_gr_sfczsjkzgx">
             {{#js_if "this.gr_sfczsjkzgx === '否'"}}
             <label style="padding-right: 66px;">
-              <input type="radio" name="public_private3" checked="checked" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect onSelectScale1" data-gr="否"></span>
+              </span>
               否
             </label>
             <label>
-              <input type="radio" name="public_private3" class="pp">
-              <span style="margin-left: -35px;"></span>
+               <span style="margin-left: -35px;" class="onRadio">
+                 <span class="onSelect" data-gr="是"></span>
+               </span>
               是
             </label>
             {{else}}
             <label style="padding-right: 66px;">
-              <input type="radio" name="public_private3" class="pp">
-              <span style="margin-left: -35px;"></span>
+               <span style="margin-left: -35px;" class="onRadio">
+                 <span class="onSelect" data-gr="否"></span>
+               </span>
               否
             </label>
             <label>
-              <input type="radio" name="public_private3" checked="checked" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect onSelectScale1" data-gr="是"></span>
+              </span>
               是
             </label>
             {{/js_if}}
@@ -298,7 +318,7 @@
         <div class="item-media"><i class="icon icon-form-comment"></i></div>
         <div class="item-inner sdx-inner">
           <div class="item-input">
-            <textarea>{{gr_sfczsjkzgx_text}}</textarea>
+            <textarea disabled="disabled" class="textareaText" data-key="B_gr_sfczsjkzgx_text">{{gr_sfczsjkzgx_text}}</textarea>
           </div>
         </div>
       </div>
@@ -309,27 +329,31 @@
         <div class="item-media"><i class="icon icon-form-name"></i></div>
         <div class="item-title label co323232">
           交易的实际受益人
-          <div class="sdx-info-publicPrivate sdx-info-jux">
+          <div class="sdx-info-publicPrivate sdx-info-jux" data-key="B_gr_sfwsjsyr">
             {{#js_if "this.gr_sfwsjsyr === '本人'"}}
             <label style="padding-right: 66px;">
-              <input type="radio" name="public_private4" checked="checked" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect onSelectScale1" data-gr="本人"></span>
+              </span>
               本人
             </label>
             <label>
-              <input type="radio" name="public_private4" class="pp">
-              <span style="margin-left: -35px;"></span>
+               <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect" data-gr="他人"></span>
+              </span>
               他人
             </label>
             {{else}}
             <label style="padding-right: 66px;">
-              <input type="radio" name="public_private4" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect" data-gr="本人"></span>
+              </span>
               本人
             </label>
             <label>
-              <input type="radio" name="public_private4" checked="checked" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect onSelectScale1" data-gr="他人"></span>
+              </span>
               他人
             </label>
             {{/js_if}}
@@ -341,7 +365,7 @@
         <div class="item-media"><i class="icon icon-form-comment"></i></div>
         <div class="item-inner sdx-inner">
           <div class="item-input">
-            <textarea>{{gr_sfwsjsyr_text}}</textarea>
+            <textarea disabled="disabled" class="textareaText" data-key="B_gr_sfwsjsyr_text">{{gr_sfwsjsyr_text}}</textarea>
           </div>
         </div>
       </div>
@@ -352,27 +376,31 @@
         <div class="item-media"><i class="icon icon-form-name"></i></div>
         <div class="item-title label co323232">
           是否有不良诚信记录
-          <div class="sdx-info-publicPrivate sdx-info-jux">
+          <div class="sdx-info-publicPrivate sdx-info-jux" data-key="B_gr_sfyblcxjl">
             {{#js_if "this.gr_sfyblcxjl === '否'"}}
             <label style="padding-right: 66px;">
-              <input type="radio" name="public_private6" checked="checked" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect onSelectScale1" data-gr="否"></span>
+              </span>
               否
             </label>
             <label>
-              <input type="radio" name="public_private6" class="pp">
-              <span style="margin-left: -35px;"></span>
+              <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect" data-gr="是"></span>
+              </span>
               是
             </label>
             {{else}}
             <label style="padding-right: 66px;">
-              <input type="radio" name="public_private6" class="pp">
-              <span style="margin-left: -35px;"></span>
+             <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect" data-gr="否"></span>
+              </span>
               否
             </label>
             <label>
-              <input type="radio" name="public_private6" checked="checked" class="pp">
-              <span style="margin-left: -35px;"></span>
+             <span style="margin-left: -35px;" class="onRadio">
+                <span class="onSelect onSelectScale1" data-gr="是"></span>
+              </span>
               是
             </label>
             {{/js_if}}
@@ -384,7 +412,7 @@
         <div class="item-media"><i class="icon icon-form-comment"></i></div>
         <div class="item-inner sdx-inner">
           <div class="item-input">
-            <textarea>{{gr_sfyblcxjl_text}}</textarea>
+            <textarea disabled="disabled" class="textareaText" data-key="B_gr_sfyblcxjl_text">{{gr_sfyblcxjl_text}}</textarea>
           </div>
         </div>
       </div>
@@ -395,5 +423,5 @@
   {{/if}}
 </div>
 
-<p style="margin: 0.2666667rem;"><a href="#" class="button button-big button-fill color-gray" style="background: #2843a9; border: 1px solid #2843a9;">保存</a></p>
+<p style="margin: 0.2666667rem; display: none;" class="sdx-info-bc"><a href="#" class="button button-big button-fill color-gray" style="background: #2843a9; border: 1px solid #2843a9;">保存</a></p>
 <p style="margin: 0.2666667rem;"><a href="#" class="button button-fill button-big color-yellow" style="background: #0fb2fe; border: 1px solid #0fb2fe;">下载PDF</a></p>

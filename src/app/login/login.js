@@ -35,6 +35,7 @@ export default class Login extends widget {
     } else {
       this.analysisCid(page);
     }
+    $('.pages').append(loginHtml);
     let _loginTpl = Tool.renderTpl(loginTpl);
     $('.login-page').append($(_loginTpl));
     myApp.modal({

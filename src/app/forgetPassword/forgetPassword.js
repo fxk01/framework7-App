@@ -23,18 +23,13 @@ export default class ForgetPassword extends widget {
 
   init() {
     let self = this;
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'userInformation') {
-      $('.view-main').attr('data-page', 'userInformation');
-      $('.pages').append(forgetPasswordHtml);
-      $('.forgetPassword-page').addClass('page-on-center')
-    }
+    $('#root').append(forgetPasswordHtml);
+
     let _forgetPasswordTpl = Tool.renderTpl(forgetPasswordTpl);
     $('.forgetPassword-page').append($(_forgetPasswordTpl));
-    $('.forget').append($(Tool.renderTpl(modiFyPs, {
-      cid: Tool.parseURL('cid'),
-    })));
+    $('.forget').append($(Tool.renderTpl(modiFyPs)));
     this.pickerZjLx();
+    $$('.framework7-root').on('click', '.modifyRegLogin', () => { window.location.href = `/#!/page/login.html?cid=${Tool.parseURL('cid')}`; });
     $$('.forget').on('click', '.sdx-ps-ulTzzLx li', function() { let that = $(this); self.stInvestor(that); });
     $$('.forget').on('click', '.sdx-ps-yzm', function() { self.postYzm(); });
     $$('.forget').on('click', '.sdx-ps-bc', function() { self.validOne(); })

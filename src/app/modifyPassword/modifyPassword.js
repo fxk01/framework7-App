@@ -19,18 +19,11 @@ export default class ModifyPassword extends widget {
   }
 
   init() {
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'modifyPassword') {
-      $('.view-main').attr('data-page', 'modifyPassword');
-      $('.pages').append(modifyPasswordHtml);
-      $('.modifyPassword-page').addClass('page-on-center')
-    }
+    $('#root').append(modifyPasswordHtml);
     let _modifyPasswordTpl = Tool.renderTpl(modifyPasswordTpl);
     $('.modifyPassword-page').append($(_modifyPasswordTpl));
 
-    setTimeout(function () {
-      $('.fund-page').remove();
-    }, 500);
+    $('.modifyHrefFund').on('click', () => { window.location.href = '/#!/page/fund.html'; });
     $('#savePass').on('click', () => { this.savePassword(); });
   }
   /*

@@ -15,6 +15,7 @@ import fundInfoList from '../../components/fund-infoList/fund-infoList.html';
 import userFdInformation from '../../components/user-fd-information/user-fd-information.html';
 import fundAsset from '../../components/fund-asset/fund-asset.html';
 import highCharts from 'highcharts';
+import $$ from 'jquery';
 
 export default class Fund extends widget {
   constructor() {
@@ -25,32 +26,23 @@ export default class Fund extends widget {
 
   init(page) {
     let self = this;
+    $('#root').append(fundHtml);
     let fundPageDom = $('.fund-page');
     let _idCard = sessionStorage.getItem('idCard');
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'fund') {
-      $('.view-main').attr('data-page', 'fund');
-      $('.pages').append(fundHtml);
-      fundPageDom.remove();
-      fundPageDom.addClass('page-on-center');
-    }
+
     myApp.closeModal('.modal-main');
     let _fundTpl = Tool.renderTpl(fundTpl);
     fundPageDom.html('').append($(_fundTpl));
-    if(fundPageDom.length === 0) {
-      $('.fund-page').attr('class', 'page fund-page page-on-center');
-      $('.fund-page').html('').append($(_fundTpl));
-    }
-    fundPageDom.html('').append($(_fundTpl));
+    myApp.initPullToRefresh($('.pullFundHome'));
+    myApp.initPullToRefresh($('.pullFund'));
     $('.userFundInformation').append(userFdInformation);
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));
-
     this.fundHomeData();
     this.fundListContent();
     $('.showHdAssets').on('click', (e) => { this.showAssets(e); });
     $('.showFundGoods').on('click', (e) => { this.showGoods(e); });
-    $('.fundTab2Accordion').on('click', '.infoListGoods .accordion-item', function() { let itemSelf = $(this); self.openData(itemSelf); });
+    $$('#root').on('click', '.infoListGoods .accordion-item', function() { let itemSelf = $(this); self.openData(itemSelf); });
     $('.pullFundHome').on('refresh', () => { this.fundHomeData(); });
     $('.pullFund').on('refresh', () => {
       this.fundListContent().then(function(str) {
@@ -59,6 +51,11 @@ export default class Fund extends widget {
         }
       });
     });
+    $$('.framework7-root').on('click', '.hrefYgCp', () => { window.location.href = `/#!/page/purchasedProducts.html`; });
+    $$('.framework7-root').on('click', '.hrefJyJl', () => { window.location.href = `/#!/page/record.html`; });
+    $$('.framework7-root').on('click', '.hrefJbXx', () => { window.location.href = `/#!/page/userInformation.html`; });
+    $$('.framework7-root').on('click', '.hrefXgMm', () => { window.location.href = `/#!/page/modifyPassword.html`; });
+    $$('.framework7-root').on('click', '.hrefTsJy', () => { window.location.href = `/#!/page/complaint.html`; });
   }
   /*
    基金产品首页内容
@@ -295,6 +292,6 @@ export default class Fund extends widget {
    */
   openData(itemSelf) {
     sessionStorage.setItem('chanPinId', itemSelf.attr('data-chanpinid'));
-    mainView.router.loadPage(`page/fundDetails.html?code=${itemSelf.attr('data-chanpincode')}`);
+    window.location.href = `/#!/page/fundDetails.html?code=${itemSelf.attr('data-chanpincode')}`;
   }
 };

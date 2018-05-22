@@ -13,17 +13,14 @@ import fundBulletinStore from '../../store/fund_bulletin';
 
 export default class FundBulletin extends widget {
   init() {
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'fundBulletin') {
-      $('.view-main').attr('data-page', 'fundBulletin');
-      $('.pages').append(fundBulletinHtml);
-      $('.fundBulletin-page').addClass('page-on-center')
-    }
+    $('#root').append(fundBulletinHtml);
     let _fundBulletinTpl = Tool.renderTpl(fundBulletinTpl, {
       code: Tool.parseURL('code'),
     });
     $('.fundBulletin-page').append($(_fundBulletinTpl));
     this.noticeList();
+
+    $('.fundHrefBulReg').on('click', () => { window.location.href = `/#!/page/fundDetail.html?code=${Tool.parseURL('code')}`; });
   }
   /*
    获取公告列表

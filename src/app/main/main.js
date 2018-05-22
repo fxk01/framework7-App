@@ -17,12 +17,7 @@ export default class Main extends widget {
   }
 
   init() {
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'main') {
-      $('.view-main').attr('data-page', 'main');
-      $('.pages').append(mainHtml);
-      $('.main-page').addClass('page-on-center');
-    }
+    $('#root').append(mainHtml);
     let _mainTpl = Tool.renderTpl(mainTpl);
     $('.main-page').html('').append($(_mainTpl));
     myApp.prompt('', '');
@@ -62,6 +57,6 @@ export default class Main extends widget {
       code += 'D' + data.charCodeAt(i).toString(6);
     }
     data = code + 'T' + _companyType;
-    mainView.router.loadPage(`page/login.html?cid=${data}`);
+    window.location.href =`/#!/page/login.html?cid=${data}`;
   }
 };

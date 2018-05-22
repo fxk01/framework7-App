@@ -20,19 +20,11 @@ export default class UserInformation extends widget {
 
   init() {
     let self = this;
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'userInformation') {
-      $('.view-main').attr('data-page', 'userInformation');
-      $('.pages').append(userInformationHtml);
-      $('.userInformation-page').addClass('page-on-center')
-    }
+    $('#root').append(userInformationHtml);
     let _userInformationTpl = Tool.renderTpl(userInformationTpl);
     $('.userInformation-page').append($(_userInformationTpl));
-
-    setTimeout(function () {
-      $('.fund-page').remove();
-    }, 500);
     this.userBasicInfo();
+    $$('#userInfoLink').on('click', () => { window.location.href = '/#!/page/fund.html'; });
     $('.userBasicInfo').on('click', '.infoEdit', () => { this.infoEdit(); });
     $$('.userBasicInfo').on('click', '.sdx-info-bc', function() { let that = $$(this); self.preservationInfo(that); });
   }

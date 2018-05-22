@@ -22,27 +22,14 @@ export default class Login extends widget {
   }
 
   init(page) {
-    if($('#root').children().length > 1) {
-      $('#root').find('div').remove();
-    }
-    let loginDom = $('.login-page');
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'login') {
-      $('.view-main').attr('data-page', 'login');
-      $('.pages').append(loginHtml);
-      loginDom.remove();
-      loginDom.addClass('page-on-center');
-    }
+    $('#root').append(loginHtml);
     const _cid = page.query.cid;
     if(_cid === undefined) {
       window.location.href = `http://${window.location.host}`;
     } else {
       this.analysisCid(page);
     }
-    $('.pages').append(loginHtml);
-    let _loginTpl = Tool.renderTpl(loginTpl, {
-      cid: Tool.parseURL('cid'),
-    });
+    let _loginTpl = Tool.renderTpl(loginTpl);
     $('.login-page').append($(_loginTpl));
     myApp.modal({
       title: '风险提示',
@@ -60,6 +47,7 @@ export default class Login extends widget {
     this.screen = $('.login-screen');
     this.screen.on('click', '.sdx-link-login', () => { this.loginHome(); });
     this.agreementMessage();
+    $('.framework7-root').on('click', '#modifyLogin', () => { window.location.href = `/#!/page/forgetPassword.html?cid=${Tool.parseURL('cid')}` });
   }
   /*
    风险提示说明
@@ -156,7 +144,7 @@ export default class Login extends widget {
             }
           }
           if(sessionStorage.getItem('company_type') === '1') {
-            mainView.router.loadPage(`page/fund.html`);
+            window.location.href = `/#!/page/fund.html`;
           }
         }
         btnActivation.removeClass('btn--waiting');

@@ -4,17 +4,17 @@
 
 'use strict';
 import './complaint.less';
+import complaintHtml from '../../page/complaint.html';
 import complaintTpl from './complaint.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
 
 export default class Complaint extends widget {
   init(page) {
+    $('#root').append(complaintHtml);
     let _complaintTpl = Tool.renderTpl(complaintTpl);
     $('.complaint-page').append($(_complaintTpl));
 
-    setTimeout(function () {
-      $('.fund-page').remove();
-    }, 500);
+    $('.comHrefFund').on('click', () => { window.location.href = '/#!/page/fund.html'; });
   }
 };

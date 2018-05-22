@@ -17,18 +17,11 @@ export default class PurchasedProducts extends widget {
   }
 
   init() {
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'purchasedProducts') {
-      $('.view-main').attr('data-page', 'purchasedProducts');
-      $('.pages').append(purchasedProductsHtml);
-      $('.purchasedProducts-page').addClass('page-on-center')
-    }
+    $('#root').append(purchasedProductsHtml);
     let _purchasedProductsTpl = Tool.renderTpl(purchasedProductsTpl);
     $('.purchasedProducts-page').append($(_purchasedProductsTpl));
 
-    setTimeout(function () {
-      $('.fund-page').remove();
-    }, 500);
+    $('.purHrefFund').on('click', () => { window.location.href = '/#!/page/fund.html'; });
     this.chased();
   }
   /*

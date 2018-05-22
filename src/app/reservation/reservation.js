@@ -12,25 +12,17 @@ import widget from '../../utils/widget';
 
 export default class Reservation extends widget {
   init() {
-    let reservationPageDom = $('.reservation-page');
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'reservation') {
-      $('.view-main').attr('data-page', 'reservation');
-      $('.pages').append(reservationHtml);
-      reservationPageDom.remove();
-      reservationPageDom.addClass('page-on-center')
-    }
+    $('#root').append(reservationHtml);
+
     let _reservationTpl = Tool.renderTpl(reservationTpl, {
       code: Tool.parseURL('code'),
     });
-    reservationPageDom.html('').append($(_reservationTpl));
-    if(reservationPageDom.length === 0) {
-      reservationPageDom.attr('class', 'page reservation-page page-on-center');
-      $('.reservation-page').html('').append($(_reservationTpl));
-    }
+    $('.reservation-page').append($(_reservationTpl));
+
     $('.ac-sg').on('click', () => { this.clickSg(); });
     $('.ac-bz').on('click', () => { this.clickBz(); });
-    $('.make').on('click', () => { this.yyMake(); })
+    $('.make').on('click', () => { this.yyMake(); });
+    $('.reHrefRegFundDe').on('click', () => { window.location.href = `/#!/page/fundDetail.html?code=${Tool.parseURL('code')}`; })
   }
   clickSg() {
     let buttons = [

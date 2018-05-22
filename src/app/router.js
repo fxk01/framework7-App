@@ -58,6 +58,7 @@ export default {
     if(sessionStorage.getItem('userType') === '产品') {
       window.registerUserType = 'cp'
     }
+    $('#root').children().remove();
     $('.'+page.name+'-page').html('');
     myApp.closeModal('.modal-main');
     myApp.closeModal('.modal-login');
@@ -80,7 +81,7 @@ export default {
       case 'fund':
         new Fund().init(page);
         break;
-      case 'fundDetails':
+      case 'fundDetail':
         new FundDetail().init(page);
         break;
       case 'reservation':

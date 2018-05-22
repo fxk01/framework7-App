@@ -17,19 +17,12 @@ export default class Record extends widget {
   }
 
   init() {
-    let viewMainDom = $('.view-main').attr('data-page');
-    if(viewMainDom !== 'record') {
-      $('.view-main').attr('data-page', 'record');
-      $('.pages').append(recordHtml);
-      $('.record-page').addClass('page-on-center')
-    }
+    $('#root').append(recordHtml);
     let _recordTpl = Tool.renderTpl(recordTpl);
     $('.record-page').append($(_recordTpl));
-
-    setTimeout(function () {
-      $('.fund-page').remove();
-    }, 500);
     this.transactionRecord();
+
+    $('.recordHrefFund').on('click', () => { window.location.href = '/#!/page/fund.html'; });
   }
   /*
    获取交易记录

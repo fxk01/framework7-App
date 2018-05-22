@@ -4,7 +4,7 @@
 
 'use strict';
 import './fundDetails.less';
-import fundDetailHtml from '../../page/fundDetails.html';
+import fundDetailHtml from '../../page/fundDetail.html';
 import fundDetailTpl from './fundDetails.tpl.html';
 import Tool from '../../utils/tool';
 import widget from '../../utils/widget';
@@ -23,33 +23,15 @@ export default class FundDetail extends widget {
 
   init(page) {
     try {
-      let fundDetailPageDom = $('.fundDetails-page');
-      let viewMainDom = $('.view-main').attr('data-page');
-      if(viewMainDom !== 'fundDetails') {
-        $('.view-main').attr('data-page', 'fundDetails');
-        $('.pages').append(fundDetailHtml);
-        fundDetailPageDom.remove();
-        fundDetailPageDom.addClass('page-on-center');
-      }
-      let _fundDetailTpl = Tool.renderTpl(fundDetailTpl, {
-        code: Tool.parseURL('code'),
-      });
-      $('.fundDetails-page').html('').append($(_fundDetailTpl));
-      if(fundDetailPageDom.length === 0) {
-        fundDetailPageDom.attr('class', 'page fundDetails-page page-on-center');
-        fundDetailPageDom.html('').append($(_fundDetailTpl));
-      }
-
-      $('.reservationHref').on('click',() => { mainView.router.loadPage(`page/reservation.html?code=${Tool.parseURL('code')}&name=${encodeURI($('.sdx-fund-jjCpH1').text())}`); });
+      $('#root').append(fundDetailHtml);
+      let _fundDetailTpl = Tool.renderTpl(fundDetailTpl);
+      $('.fundDetail-page').append($(_fundDetailTpl));
       this.fundGoodInfo();
       this.productElements();
 
-      let reValue = $('#root').children()[1].attributes[0].value;
-      if(reValue === 'reservation') {
-        setTimeout(function () {
-          $('.fund-page').remove();
-        }, 500);
-      }
+      $('.framework7-root').on('click', '.fundDeHrefRegFund', () => { window.location.href = `/#!/page/fund.html`; });
+      $('.framework7-root').on('click', '.fundHrefBul', () => { window.location.href = `/#!/page/fundBulletin.html?code=${Tool.parseURL('code')}`; });
+      $('.framework7-root').on('click', '.reservationHref', () => { window.location.href = `/#!/page/reservation.html?code=${Tool.parseURL('code')}&name=${encodeURI($('.sdx-fund-jjCpH1').text())}`; });
     } catch (e) {
       console.log(e.message);
     }

@@ -109,6 +109,11 @@ export default class ForgetPassword extends widget {
         rules: 'required|is_phone'
       },
       {
+        name: 'pin',
+        display: '验证码不能为空',
+        rules: 'required'
+      },
+      {
         name: 'password',
         display: '新密码不能为空',
         rules: 'required'
@@ -116,15 +121,11 @@ export default class ForgetPassword extends widget {
       {
         name: 'rePassWorld',
         display: '密码不一致',
-        rules: 'same(password)'
+        rules: 'same(password)|required'
       },
-      {
-        name: 'pin',
-        display: '验证码不能为空',
-        rules: 'required'
-      }
     ], function(obj) {
       try {
+        console.log(obj)
         if(obj.errors.length > 0) {
           let toast = myApp.toast('', `<div>${obj.errors[0].message}</div>`, options);
           toast.show();

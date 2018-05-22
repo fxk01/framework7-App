@@ -22,6 +22,9 @@ export default class Login extends widget {
   }
 
   init(page) {
+    if($('#root').children().length > 1) {
+      $('#root').find('div').remove();
+    }
     let loginDom = $('.login-page');
     let viewMainDom = $('.view-main').attr('data-page');
     if(viewMainDom !== 'login') {

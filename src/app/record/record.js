@@ -26,6 +26,9 @@ export default class Record extends widget {
     let _recordTpl = Tool.renderTpl(recordTpl);
     $('.record-page').append($(_recordTpl));
 
+    setTimeout(function () {
+      $('.fund-page').remove();
+    }, 500);
     this.transactionRecord();
   }
   /*

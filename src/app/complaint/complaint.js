@@ -12,5 +12,9 @@ export default class Complaint extends widget {
   init(page) {
     let _complaintTpl = Tool.renderTpl(complaintTpl);
     $('.complaint-page').append($(_complaintTpl));
+
+    setTimeout(function () {
+      $('.fund-page').remove();
+    }, 500);
   }
 };

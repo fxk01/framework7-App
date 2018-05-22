@@ -43,6 +43,7 @@
     "framework7": "^1.6.5",
     "html-minifier": "^3.5.9",
     "jquery": "^2.2.4",
-    "node-polyglot": "^2.2.2"
+    "node-polyglot": "^2.2.2",
+    "validator.tool": "^1.0.10"
   }
 }

@@ -28,6 +28,9 @@ export default class ModifyPassword extends widget {
     let _modifyPasswordTpl = Tool.renderTpl(modifyPasswordTpl);
     $('.modifyPassword-page').append($(_modifyPasswordTpl));
 
+    setTimeout(function () {
+      $('.fund-page').remove();
+    }, 500);
     $('#savePass').on('click', () => { this.savePassword(); });
   }
   /*

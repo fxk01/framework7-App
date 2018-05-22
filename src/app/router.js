@@ -16,6 +16,7 @@ import {
   PurchasedProducts,
   UserInformation,
   ModifyPassword,
+  ForgetPassword,
 } from './page';
 import Main from './main/main';
 import Utils from '../utils/tool';
@@ -99,6 +100,9 @@ export default {
         break;
       case 'modifyPassword':
         new ModifyPassword().init(page);
+        break;
+      case 'forgetPassword':
+        new ForgetPassword().init(page);
         break;
       default:
         break;

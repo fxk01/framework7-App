@@ -22,12 +22,13 @@ export default class Login extends widget {
   }
 
   init(page) {
+    let loginDom = $('.login-page');
     let viewMainDom = $('.view-main').attr('data-page');
     if(viewMainDom !== 'login') {
       $('.view-main').attr('data-page', 'login');
       $('.pages').append(loginHtml);
-      $('.login-page').remove();
-      $('.login-page').addClass('page-on-center');
+      loginDom.remove();
+      loginDom.addClass('page-on-center');
     }
     const _cid = page.query.cid;
     if(_cid === undefined) {
@@ -36,7 +37,9 @@ export default class Login extends widget {
       this.analysisCid(page);
     }
     $('.pages').append(loginHtml);
-    let _loginTpl = Tool.renderTpl(loginTpl);
+    let _loginTpl = Tool.renderTpl(loginTpl, {
+      cid: Tool.parseURL('cid'),
+    });
     $('.login-page').append($(_loginTpl));
     myApp.modal({
       title: '风险提示',

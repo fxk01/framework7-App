@@ -29,6 +29,9 @@ export default class UserInformation extends widget {
     let _userInformationTpl = Tool.renderTpl(userInformationTpl);
     $('.userInformation-page').append($(_userInformationTpl));
 
+    setTimeout(function () {
+      $('.fund-page').remove();
+    }, 500);
     this.userBasicInfo();
     $('.userBasicInfo').on('click', '.infoEdit', () => { this.infoEdit(); });
     $$('.userBasicInfo').on('click', '.sdx-info-bc', function() { let that = $$(this); self.preservationInfo(that); });

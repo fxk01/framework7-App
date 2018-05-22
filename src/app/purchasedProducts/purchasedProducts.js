@@ -26,6 +26,9 @@ export default class PurchasedProducts extends widget {
     let _purchasedProductsTpl = Tool.renderTpl(purchasedProductsTpl);
     $('.purchasedProducts-page').append($(_purchasedProductsTpl));
 
+    setTimeout(function () {
+      $('.fund-page').remove();
+    }, 500);
     this.chased();
   }
   /*

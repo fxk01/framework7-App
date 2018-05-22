@@ -41,6 +41,7 @@ export default class Fund extends widget {
       $('.fund-page').attr('class', 'page fund-page page-on-center');
       $('.fund-page').html('').append($(_fundTpl));
     }
+    fundPageDom.html('').append($(_fundTpl));
     $('.userFundInformation').append(userFdInformation);
     $('.fundUser').text(sessionStorage.getItem('companyUser'));
     $('.fundIdCard').text(_idCard.substr(0,2) + '**************' + _idCard.substr(_idCard.length-2, 2));

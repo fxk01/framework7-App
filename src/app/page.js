@@ -13,3 +13,4 @@ export { default as FundNoticeDetails } from './fundNoticeDetails/fundNoticeDeta
 export { default as PurchasedProducts } from './purchasedProducts/purchasedProducts';
 export { default as UserInformation } from './userInformation/userInformation';
 export { default as ModifyPassword } from './modifyPassword/modifyPassword';
+export { default as ForgetPassword } from './forgetPassword/forgetPassword';
